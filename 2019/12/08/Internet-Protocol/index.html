@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>处理响应 | Noonde</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="网络协议网络API开发" />
+  
+  
+  
+  
+  <meta name="description" content="1.简介   目前为止我们已经发起了各种各样的请求，也看到了服务器发回的原始 HTTP 数据。服务器返回的原始数据就是所谓的响应。本章我们会分析 HTTP 响应里的各种组成部分。 2.常见的HTTP状态码   状态码 状态文本 含义    200 ok 客户端请求成功   302 302 Found 临时重定向 临时重定向，在Location响应首部的值仍为新的URL(显示重定向)   400 B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="处理响应">
+<meta property="og:url" content="http://example.com/2019/12/08/Internet-Protocol/index.html">
+<meta property="og:site_name" content="Noonde">
+<meta property="og:description" content="1.简介   目前为止我们已经发起了各种各样的请求，也看到了服务器发回的原始 HTTP 数据。服务器返回的原始数据就是所谓的响应。本章我们会分析 HTTP 响应里的各种组成部分。 2.常见的HTTP状态码   状态码 状态文本 含义    200 ok 客户端请求成功   302 302 Found 临时重定向 临时重定向，在Location响应首部的值仍为新的URL(显示重定向)   400 B">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/2018-12-08/http_status.png">
+<meta property="article:published_time" content="2019-12-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-23T15:35:13.649Z">
+<meta property="article:author" content="Yunling Zhang">
+<meta property="article:tag" content="网络协议">
+<meta property="article:tag" content="网络API开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/2018-12-08/http_status.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Noonde" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Internet-Protocol" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      处理响应
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/12/08/Internet-Protocol/" class="article-date">
+	  <time datetime="2019-12-07T15:00:00.000Z" itemprop="datePublished">2019-12-08</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><p>   目前为止我们已经发起了各种各样的请求，也看到了服务器发回的原始 HTTP 数据。服务器返回的原始数据就是所谓的响应。本章我们会分析 HTTP 响应里的各种组成部分。</p>
+<h3 id="2-常见的HTTP状态码"><a href="#2-常见的HTTP状态码" class="headerlink" title="2.常见的HTTP状态码"></a>2.常见的HTTP状态码</h3><table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>状态文本</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>ok</td>
+<td>客户端请求成功</td>
+</tr>
+<tr>
+<td>302</td>
+<td>302 Found 临时重定向</td>
+<td>临时重定向，在Location响应首部的值仍为新的URL(显示重定向)</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request</td>
+<td>错误请求。由于语法错误，该请求无法完成</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden 禁止访问</td>
+<td>禁止访问，服务器拒绝响应</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found</td>
+<td>请求的资源不存在</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error</td>
+<td>服务器发生了不可预期的错误</td>
+</tr>
+</tbody></table>
+<p><img src="/images/2018-12-08/http_status.png"></p>
+<blockquote>
+<p>作为一个 web 开发者，你应该熟知上面的响应状态码和其代表的含义。</p>
+</blockquote>
+<h3 id="3-常见的HTTP请求头"><a href="#3-常见的HTTP请求头" class="headerlink" title="3.常见的HTTP请求头"></a>3.常见的HTTP请求头</h3><table>
+<thead>
+<tr>
+<th>请求头</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept-charset</td>
+<td>用于指定客户端接受的字符集</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>Accept-Encoding    用于指定可接受的内容编码。如：Accept-Encoding：gzip，deflate</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>用于指定一种自然语言。如：Accept-Language：zh-CN</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>用于指定被请求资源的Internet主机和端口号。如：Host：<a target="_blank" rel="noopener" href="http://www.taobao.com/">www.taobao.com</a></td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>客户端将它的操作系统、浏览器和其他属性告诉服务器。 如：User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>当前连接是否保持。如：Connection：Keep-Alive</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>一般前端请求后端API接口的时候, 最好添加一些响应头</p>
+</blockquote>
+<h3 id="4-常见的HTTP响应头"><a href="#4-常见的HTTP响应头" class="headerlink" title="4.常见的HTTP响应头"></a>4.常见的HTTP响应头</h3><table>
+<thead>
+<tr>
+<th>响应头</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Server</td>
+<td>使用的服务器名称。如：Server：Apache／1.3.6（Unix）</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>用来指明发送给接收者的实体正文的媒体类型。如：Content-Type：text/html；charset=utf-8</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>与请求头Accept-Encoding对应，告诉浏览器服务端采用的是什么压缩编码</td>
+</tr>
+<tr>
+<td>Content-Language</td>
+<td>描述了资源所用的自然语言，与Accept-Language对应</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>指明实体正文的长度，用以字节方式存储的十进制数字来表示</td>
+</tr>
+<tr>
+<td>Keep-Live</td>
+<td>保持连接时间。如：Keep-Live：timeout=5，max=120</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: '',
+  alipayImage: ''
+});
+</script>
+      
+      
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9CAPI%E5%BC%80%E5%8F%91/" rel="tag">网络API开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" rel="tag">网络协议</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/12/12/IntelliJ-IDEA-For-Mac-%E5%BF%AB%E6%8D%B7%E9%94%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          IntelliJ IDEA For Mac 快捷键
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">1.简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%B8%E8%A7%81%E7%9A%84HTTP%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">2.常见的HTTP状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%B8%B8%E8%A7%81%E7%9A%84HTTP%E8%AF%B7%E6%B1%82%E5%A4%B4"><span class="nav-number">3.</span> <span class="nav-text">3.常见的HTTP请求头</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B8%B8%E8%A7%81%E7%9A%84HTTP%E5%93%8D%E5%BA%94%E5%A4%B4"><span class="nav-number">4.</span> <span class="nav-text">4.常见的HTTP响应头</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2020 Noonde All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Noonde
+          </div>
+          <div class="panel-body">
+            Copyright © 2020 Yunling Zhang All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

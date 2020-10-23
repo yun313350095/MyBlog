@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>关于golang 包管理工具的介绍 | Noonde</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Golang dep" />
+  
+  
+  
+  
+  <meta name="description" content="Golang官方依赖管理工具：dep就像 npm or yarn 一样的包管理工具. dep 和 go get 有什么区别 go get可以通过外部包安装在自己的 $ GOPATH &#x2F; src &#x2F; github.com &#x2F;下面供自己用.自己的其他项目也可共同使用这些外部的地方库.  dep主要是和自己某一个项目相关的依赖库下载到自己的项目包里面, 通常会下载到 vendor 文件下面, 通过使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Golang 包管理工具的介绍">
+<meta property="og:url" content="http://example.com/2020/08/12/%E5%85%B3%E4%BA%8EGolang-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="Noonde">
+<meta property="og:description" content="Golang官方依赖管理工具：dep就像 npm or yarn 一样的包管理工具. dep 和 go get 有什么区别 go get可以通过外部包安装在自己的 $ GOPATH &#x2F; src &#x2F; github.com &#x2F;下面供自己用.自己的其他项目也可共同使用这些外部的地方库.  dep主要是和自己某一个项目相关的依赖库下载到自己的项目包里面, 通常会下载到 vendor 文件下面, 通过使用">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-12T03:37:18.000Z">
+<meta property="article:modified_time" content="2020-10-23T15:35:44.229Z">
+<meta property="article:author" content="Yunling Zhang">
+<meta property="article:tag" content="Golang dep">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Noonde" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="dep-golang-关于Golang-包管理工具的介绍" style="width: 75%; float:left;" class="article article-type-dep-golang" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      关于Golang 包管理工具的介绍
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/08/12/%E5%85%B3%E4%BA%8EGolang-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BB%8B%E7%BB%8D/" class="article-date">
+	  <time datetime="2020-08-12T03:37:18.000Z" itemprop="datePublished">2020-08-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Golang%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/">Golang的第三方库的使用</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		PV:<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Golang官方依赖管理工具：dep"><a href="#Golang官方依赖管理工具：dep" class="headerlink" title="Golang官方依赖管理工具：dep"></a>Golang官方依赖管理工具：dep</h2><p>就像 <code>npm or yarn</code> 一样的包管理工具.</p>
+<h3 id="dep-和-go-get-有什么区别"><a href="#dep-和-go-get-有什么区别" class="headerlink" title="dep 和 go get 有什么区别"></a>dep 和 go get 有什么区别</h3><ul>
+<li><p>go get<br>可以通过外部包安装在自己的 <code>$ GOPATH / src / github.com /</code>下面供自己用.<br>自己的其他项目也可共同使用这些外部的地方库.</p>
+</li>
+<li><p>dep<br>主要是和自己某一个项目相关的依赖库下载到自己的项目包里面, 通常会下载到 <code>vendor</code> 文件下面, 通过使用 <code>dep ensure</code> 根据<code>Gopkg.toml,Gopkg.lock</code> 来更新以来库. </p>
+</li>
+</ul>
+<h3 id="Dep-的使用方法"><a href="#Dep-的使用方法" class="headerlink" title="Dep 的使用方法"></a>Dep 的使用方法</h3><ul>
+<li>首先需要安装<br><code>$ go get -u github.com/golang/dep/cmd/dep</code></li>
+</ul>
+<ul>
+<li>dep 命令的说明</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ dep help</span><br><span class="line">dep is a tool for managing dependencies for Go projects</span><br><span class="line"></span><br><span class="line">Usage: dep &lt;command&gt;</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line"></span><br><span class="line">  init    Initialize a new project with manifest and lock files</span><br><span class="line">  status  Report the status of the project&#39;s dependencies</span><br><span class="line">  ensure  Ensure a dependency is safely vendored in the project</span><br><span class="line">  prune   Prune the vendor tree of unused packages</span><br><span class="line"></span><br><span class="line">Examples:</span><br><span class="line">  dep init                          set up a new project</span><br><span class="line">  dep ensure                        install the project&#39;s dependencies</span><br><span class="line">  dep ensure -update                update the locked versions of all dependencies</span><br><span class="line">  dep ensure github.com&#x2F;pkg&#x2F;errors  add a dependency to the project</span><br><span class="line"></span><br><span class="line">Use &quot;dep help [command]&quot; for more information about a command.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面是英文版的, 小弟英文一般般, 翻译一下.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ dep help</span><br><span class="line"> dep 是Golang的一个包管理工具.</span><br><span class="line"></span><br><span class="line">  使用方法：dep &lt;命令&gt;</span><br><span class="line"></span><br><span class="line">命令:</span><br><span class="line"></span><br><span class="line">  init    项目的初始化,在时候用过程中生成第三方包列表文件[Gopkg.toml]和锁文件[Gopkg.lock]</span><br><span class="line"></span><br><span class="line">  status  项目中文件的状态会报告给你</span><br><span class="line"></span><br><span class="line">  ensure  会安全的根据[Gopkg.toml] [Gopkg.lock]的版本进行更新.</span><br><span class="line"> </span><br><span class="line">  prune   如果代码更新,或者第三包不在使用的时候,可以使用该命令进行删除</span><br><span class="line"></span><br><span class="line">例:</span><br><span class="line">  dep init                          项目初期化</span><br><span class="line">  dep ensure                        依赖文件进行安装</span><br><span class="line">  dep ensure -update                全部的依赖包进行升级</span><br><span class="line">  dep ensure github.com&#x2F;pkg&#x2F;errors  添加新的依赖包</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+
+<script src="/js/vdonate.js"></script>
+
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: 'Donate', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: '',
+  alipayImage: ''
+});
+</script>
+      
+      
+      
+      
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang-dep/" rel="tag">Golang dep</a></li></ul>
+
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/10/03/Strategy%E7%AD%96%E7%95%A5%E6%96%B9%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          策略设计模式Golang
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/01/%E4%BF%A1%E6%81%AF%E6%B5%81%E5%B9%BF%E5%91%8A/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">信息流广告-定义</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Golang%E5%AE%98%E6%96%B9%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%EF%BC%9Adep"><span class="nav-number">1.</span> <span class="nav-text">Golang官方依赖管理工具：dep</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dep-%E5%92%8C-go-get-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.</span> <span class="nav-text">dep 和 go get 有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dep-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">Dep 的使用方法</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2017 - 2020 Noonde All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				UV : <span id="busuanzi_value_site_uv"></span> |  
+				PV : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Noonde
+          </div>
+          <div class="panel-body">
+            Copyright © 2020 Yunling Zhang All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
