@@ -3,26 +3,29 @@
 <head>
   <meta charset="utf-8">
   
-  <title>广告用语 | Noonde</title>
+  <title>简单工厂设计模式golang | Noonde</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="广告" />
+    <meta name="keywords" content="Noonde" />
   
   
   
   
-  <meta name="description" content="主要广告用语 广告主 advertiser 显然是指想为自己的品牌或者产品做广告的人   媒体 publisher 则是提供广告位置的载体，例如电视台、网站、杂志、楼宇…   广告商 agency 本质上其实就是中介，帮广告主找媒体广告位，帮媒体找广告主。   受众 audience “消费”广告的人   广告位置 inventory 广告的位置  Ad Exchange 广告交换平台Ad Exc">
+  <meta name="description" content="简单工厂设计模式(Simple Factory Pattern)简单工厂设计模式(Simple Factory Patten): 根据参数的不同返回不同类的实例. 简单工厂模式专门定义一个类来负责创建其他的实例,被创建的实例通常含有相同的父类. 优点 和 缺点– 优点  只需要传递参数就可以创建产品的类. 创建的对象跟业务代码进行分离. 可以通过引入配置文件, 可以增加系统的灵活性.  – 缺点">
 <meta property="og:type" content="article">
-<meta property="og:title" content="广告用语">
-<meta property="og:url" content="http://example.com/2020/10/15/%E4%B8%BB%E8%A6%81%E5%B9%BF%E5%91%8A%E7%94%A8%E8%AF%AD/index.html">
+<meta property="og:title" content="简单工厂设计模式Golang">
+<meta property="og:url" content="https://noonde.com/2020/10/20/GoF23/SimpleFactory%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Noonde">
-<meta property="og:description" content="主要广告用语 广告主 advertiser 显然是指想为自己的品牌或者产品做广告的人   媒体 publisher 则是提供广告位置的载体，例如电视台、网站、杂志、楼宇…   广告商 agency 本质上其实就是中介，帮广告主找媒体广告位，帮媒体找广告主。   受众 audience “消费”广告的人   广告位置 inventory 广告的位置  Ad Exchange 广告交换平台Ad Exc">
+<meta property="og:description" content="简单工厂设计模式(Simple Factory Pattern)简单工厂设计模式(Simple Factory Patten): 根据参数的不同返回不同类的实例. 简单工厂模式专门定义一个类来负责创建其他的实例,被创建的实例通常含有相同的父类. 优点 和 缺点– 优点  只需要传递参数就可以创建产品的类. 创建的对象跟业务代码进行分离. 可以通过引入配置文件, 可以增加系统的灵活性.  – 缺点">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-14T16:20:00.000Z">
-<meta property="article:modified_time" content="2020-10-23T15:36:44.448Z">
+<meta property="og:image" content="https://noonde.com/images/2020-10-20/SimpleFactory.png">
+<meta property="article:published_time" content="2020-10-19T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-25T13:35:40.060Z">
 <meta property="article:author" content="Yunling Zhang">
-<meta property="article:tag" content="广告">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="GoF23">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://noonde.com/images/2020-10-20/SimpleFactory.png">
   
     <link rel="alternate" href="/atom.xml" title="Noonde" type="application/atom+xml">
   
@@ -168,7 +171,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="广告用语-主要广告用语" style="width: 75%; float:left;" class="article article-type-广告用语" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-GoF23/SimpleFactory简单工厂设计" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -176,7 +179,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      广告用语
+      简单工厂设计模式Golang
     </h1>
   
 
@@ -184,12 +187,12 @@
     
     <div class="article-meta">
       
-	<a href="/2020/10/15/%E4%B8%BB%E8%A6%81%E5%B9%BF%E5%91%8A%E7%94%A8%E8%AF%AD/" class="article-date">
-	  <time datetime="2020-10-14T16:20:00.000Z" itemprop="datePublished">2020-10-15</time>
+	<a href="/2020/10/20/GoF23/SimpleFactory%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/" class="article-date">
+	  <time datetime="2020-10-19T15:00:00.000Z" itemprop="datePublished">2020-10-20</time>
 	</a>
 
       
-    <a class="article-category-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
 
       
 	<a class="article-views">
@@ -203,31 +206,26 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="主要广告用语"><a href="#主要广告用语" class="headerlink" title="主要广告用语"></a>主要广告用语</h5><blockquote>
-<p>广告主 advertiser 显然是指想为自己的品牌或者产品做广告的人</p>
-</blockquote>
-<blockquote>
-<p>媒体 publisher 则是提供广告位置的载体，例如电视台、网站、杂志、楼宇…</p>
-</blockquote>
-<blockquote>
-<p>广告商 agency 本质上其实就是中介，帮广告主找媒体广告位，帮媒体找广告主。</p>
-</blockquote>
-<blockquote>
-<p>受众 audience “消费”广告的人</p>
-</blockquote>
-<blockquote>
-<p>广告位置 inventory 广告的位置</p>
-</blockquote>
-<p><em>Ad Exchange 广告交换平台</em><br>Ad Exchange 广告交换平台不仅仅联合publishers, 它同样把Ad Network联合起来, 这些拥有广告位的,<br>被统一用 <code>供应方 (Supply side) </code>一词代替. 广告主的广告.</p>
-<p>Ad Exchange，则是一个真正意义上按照供需关系来运转的“市场经济”。</p>
-<p>Ad　Exchange为每一个商品(广告位置)提供了价高者得的机制.  Ad Exchange 则更像是Nashdaq, 广告位置就是股票. 股民就是广告主. 哪些广告位置更有价值, 就会被广告主追逐的更多. 价格就会更高.</p>
-<h5 id="RTB-Real-Time-bidding-实时竞价-模式"><a href="#RTB-Real-Time-bidding-实时竞价-模式" class="headerlink" title="RTB (Real Time bidding) 实时竞价 模式"></a>RTB (Real Time bidding) 实时竞价 模式</h5><p>实时竞价一般是按照 <code>CPM</code> 或者 <code>CPC</code> 出价的. 简单说是按照广告被展现的在受众面前的次数出价. 或者按照广告被点击的次数出价. </p>
-<h5 id="DSP-Demand-Side-Platform）需求方平台"><a href="#DSP-Demand-Side-Platform）需求方平台" class="headerlink" title="DSP (Demand Side Platform）需求方平台"></a>DSP (Demand Side Platform）需求方平台</h5><p>它看起来就是帮助广告主玩转Ad Exchange的中介(agency). DSP把Ad Exchange中的广告位的展示做成了一个巨大的改变. 在DSP中广告位这个概念被淡化了, 目标受众(Targe Audience) 的概念则被提出来.</p>
-<p>每一个广告背后, 都是一部分受众(audience), 广告主购买广告的位的目的, 实际上就是看中了广告位背后的用户. </p>
-<p>DSP就成了一边连接Ad Exchange, 另外一遍服务于广告主的中介. DSP通过请打的受众数据和数学能力, 帮助广告主实时决策, 合理花钱. 所以需要受众数据, 准确的, 海量的. 其二, 强大的自动化算法, 保证最合理的竞价.</p>
-<h5 id="DMP-Data-Management-Platform-数据管理平台"><a href="#DMP-Data-Management-Platform-数据管理平台" class="headerlink" title="DMP (Data Management Platform) 数据管理平台"></a>DMP (Data Management Platform) 数据管理平台</h5><p>DSP自己有自己的受众数据, 数据管理平台, 简单讲, 他们手中握有受众数据, 并且能够让DSP连接他们这里, 利用他的数据<br>DMP为了获取受众数据, 它必须做两件事情, 其一, 它需要为所有受众每一个做一个标记, 这个标记在目前的技术下, 通过cookie实现. 其二, 它还需要能够实现跨域追中</p>
-<h5 id="SSP-Supply-Side-Platform-供应方平台"><a href="#SSP-Supply-Side-Platform-供应方平台" class="headerlink" title="SSP (Supply Side Platform) 供应方平台"></a>SSP (Supply Side Platform) 供应方平台</h5><p>供应方(publishers 和 Ad Networks) 有一个呗成为SSP, 他们是大点各个Ad Exchange 的关系. 提供使用体验更一直集成的广告库存管理环境. 为各媒体提供一致、集成的广告位库存管理环境.</p>
-
+        <h5 id="简单工厂设计模式-Simple-Factory-Pattern"><a href="#简单工厂设计模式-Simple-Factory-Pattern" class="headerlink" title="简单工厂设计模式(Simple Factory Pattern)"></a>简单工厂设计模式(Simple Factory Pattern)</h5><p>简单工厂设计模式(Simple Factory Patten): 根据参数的不同返回不同类的实例. 简单工厂模式专门定义一个类来负责创建其他的实例,被创建的实例<br>通常含有相同的父类.</p>
+<h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>– 优点</p>
+<ol>
+<li>只需要传递参数就可以创建产品的类.</li>
+<li>创建的对象跟业务代码进行分离.</li>
+<li>可以通过引入配置文件, 可以增加系统的灵活性.</li>
+</ol>
+<p>– 缺点</p>
+<ol>
+<li>工厂类中含有大量的逻辑代码. 如果出现问题会影响系统</li>
+<li>会增加类的个数</li>
+<li>系统扩展困难, 需要修改工厂逻辑代码</li>
+</ol>
+<h5 id="简单工厂-角色"><a href="#简单工厂-角色" class="headerlink" title="简单工厂 角色"></a>简单工厂 角色</h5><ol>
+<li>Factory(工厂类)用来生产产品, 是整个简单工厂模式的核心. 通过工厂类传入想要生产产品的参数, 然后生产产品.</li>
+<li>Product(抽象产品类)用来定义具体产品所应实现的接口</li>
+<li>ConcreteProduct(具体产品类), 实现抽象产品的接口, 不同的具体产品, 对于同一种方法可能具有不同的实现方式，经由工厂类进行实例化。</li>
+</ol>
+<h5 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h5><p><img src="/images/2020-10-20/SimpleFactory.png"></p>
+<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Car <span class="keyword">interface</span> &#123;</span><br><span class="line">	Drive()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> BMW <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *BMW)</span> <span class="title">Drive</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Drive BMW&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Audi <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *Audi)</span> <span class="title">Drive</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Drive Auti&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Factory</span><span class="params">(name <span class="keyword">string</span>)</span> <span class="title">Car</span></span> &#123;</span><br><span class="line">	<span class="keyword">switch</span> strings.ToLower(name) &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">&quot;audi&quot;</span>:</span><br><span class="line">		<span class="keyword">return</span> &amp;Audi&#123;&#125;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">&quot;bmw&quot;</span>:</span><br><span class="line">		<span class="keyword">return</span> &amp;BMW&#123;&#125;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Printf(<span class="string">&quot;Not Support %s\n&quot;</span>, name)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
@@ -251,7 +249,7 @@ var a = new Donate({
       
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%BF%E5%91%8A/" rel="tag">广告</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GoF23/" rel="tag">GoF23</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
 
       
 
@@ -261,19 +259,10 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/2020/10/15/%E4%BF%A1%E6%81%AF%E6%B5%81%E5%B9%BF%E5%91%8A-%E5%8C%BA%E5%88%AB/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          信息流广告算法等
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/10/03/Strategy%E7%AD%96%E7%95%A5%E6%96%B9%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/10/15/Ad/%E4%BF%A1%E6%81%AF%E6%B5%81%E5%B9%BF%E5%91%8A-%E5%8C%BA%E5%88%AB/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">策略设计模式Golang</div>
+      <div class="article-nav-title">信息流广告算法等</div>
     </a>
   
 </nav>
@@ -287,7 +276,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%B9%BF%E5%91%8A%E7%94%A8%E8%AF%AD"><span class="nav-number">1.</span> <span class="nav-text">主要广告用语</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RTB-Real-Time-bidding-%E5%AE%9E%E6%97%B6%E7%AB%9E%E4%BB%B7-%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">RTB (Real Time bidding) 实时竞价 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DSP-Demand-Side-Platform%EF%BC%89%E9%9C%80%E6%B1%82%E6%96%B9%E5%B9%B3%E5%8F%B0"><span class="nav-number">3.</span> <span class="nav-text">DSP (Demand Side Platform）需求方平台</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DMP-Data-Management-Platform-%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0"><span class="nav-number">4.</span> <span class="nav-text">DMP (Data Management Platform) 数据管理平台</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SSP-Supply-Side-Platform-%E4%BE%9B%E5%BA%94%E6%96%B9%E5%B9%B3%E5%8F%B0"><span class="nav-number">5.</span> <span class="nav-text">SSP (Supply Side Platform) 供应方平台</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-Simple-Factory-Pattern"><span class="nav-number">1.</span> <span class="nav-text">简单工厂设计模式(Simple Factory Pattern)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-%E5%92%8C-%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点 和 缺点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82-%E8%A7%92%E8%89%B2"><span class="nav-number">3.</span> <span class="nav-text">简单工厂 角色</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UML"><span class="nav-number">4.</span> <span class="nav-text">UML</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">5.</span> <span class="nav-text">代码实现</span></a></li></ol>
     
     </div>
   </aside>
@@ -302,7 +291,7 @@ var a = new Donate({
   <div class="container">
       	<div class="row">
 	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
-	      <p id="copyRightEn">Copyright &copy; 2017 - 2020 Noonde All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2020 Noonde All Rights Reserved.</p>
 	      
 	      
     		<p class="busuanzi_uv">
