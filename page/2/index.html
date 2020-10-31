@@ -192,6 +192,69 @@
         
           <section id="main" style="float:none;">
   
+    <article id="dep-golang-Golang/关于Golang-包管理工具的介绍"  class="article article-type-dep-golang" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/08/12/Golang/%E5%85%B3%E4%BA%8EGolang-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BB%8B%E7%BB%8D/">关于Golang 包管理工具的介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/08/12/Golang/%E5%85%B3%E4%BA%8EGolang-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BB%8B%E7%BB%8D/" class="article-date">
+	  <time datetime="2020-08-12T03:37:18.000Z" itemprop="datePublished">2020-08-12</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/Golang%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/">Golang的第三方库的使用</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Golang官方依赖管理工具：dep"><a href="#Golang官方依赖管理工具：dep" class="headerlink" title="Golang官方依赖管理工具：dep"></a>Golang官方依赖管理工具：dep</h2><p>就像 <code>npm or yarn</code> 一样的包管理工具.</p>
+<h3 id="dep-和-go-get-有什么区别"><a href="#dep-和-go-get-有什么区别" class="headerlink" title="dep 和 go get 有什么区别"></a>dep 和 go get 有什么区别</h3><ul>
+<li><p>go get<br>可以通过外部包安装在自己的 <code>$ GOPATH / src / github.com /</code>下面供自己用.<br>自己的其他项目也可共同使用这些外部的地方库.</p>
+</li>
+<li><p>dep<br>主要是和自己某一个项目相关的依赖库下载到自己的项目包里面, 通常会下载到 <code>vendor</code> 文件下面, 通过使用 <code>dep ensure</code> 根据<code>Gopkg.toml,Gopkg.lock</code> 来更新以来库. </p>
+</li>
+</ul>
+<h3 id="Dep-的使用方法"><a href="#Dep-的使用方法" class="headerlink" title="Dep 的使用方法"></a>Dep 的使用方法</h3><ul>
+<li>首先需要安装<br><code>$ go get -u github.com/golang/dep/cmd/dep</code></li>
+</ul>
+<ul>
+<li>dep 命令的说明</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ dep help</span><br><span class="line">dep is a tool for managing dependencies for Go projects</span><br><span class="line"></span><br><span class="line">Usage: dep &lt;command&gt;</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line"></span><br><span class="line">  init    Initialize a new project with manifest and lock files</span><br><span class="line">  status  Report the status of the project&#39;s dependencies</span><br><span class="line">  ensure  Ensure a dependency is safely vendored in the project</span><br><span class="line">  prune   Prune the vendor tree of unused packages</span><br><span class="line"></span><br><span class="line">Examples:</span><br><span class="line">  dep init                          set up a new project</span><br><span class="line">  dep ensure                        install the project&#39;s dependencies</span><br><span class="line">  dep ensure -update                update the locked versions of all dependencies</span><br><span class="line">  dep ensure github.com&#x2F;pkg&#x2F;errors  add a dependency to the project</span><br><span class="line"></span><br><span class="line">Use &quot;dep help [command]&quot; for more information about a command.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面是英文版的, 小弟英文一般般, 翻译一下.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ dep help</span><br><span class="line"> dep 是Golang的一个包管理工具.</span><br><span class="line"></span><br><span class="line">  使用方法：dep &lt;命令&gt;</span><br><span class="line"></span><br><span class="line">命令:</span><br><span class="line"></span><br><span class="line">  init    项目的初始化,在时候用过程中生成第三方包列表文件[Gopkg.toml]和锁文件[Gopkg.lock]</span><br><span class="line"></span><br><span class="line">  status  项目中文件的状态会报告给你</span><br><span class="line"></span><br><span class="line">  ensure  会安全的根据[Gopkg.toml] [Gopkg.lock]的版本进行更新.</span><br><span class="line"> </span><br><span class="line">  prune   如果代码更新,或者第三包不在使用的时候,可以使用该命令进行删除</span><br><span class="line"></span><br><span class="line">例:</span><br><span class="line">  dep init                          项目初期化</span><br><span class="line">  dep ensure                        依赖文件进行安装</span><br><span class="line">  dep ensure -update                全部的依赖包进行升级</span><br><span class="line">  dep ensure github.com&#x2F;pkg&#x2F;errors  添加新的依赖包</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="信息流广告-定义-Ad/信息流广告"  class="article article-type-信息流广告-定义" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     

@@ -192,6 +192,55 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-GoF23/proxy代理模式设计"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/11/05/GoF23/proxy%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1/">代理模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/11/05/GoF23/proxy%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1/" class="article-date">
+	  <time datetime="2020-11-04T15:00:00.000Z" itemprop="datePublished">2020-11-05</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h5><p>代理模式(Proxy Pattern): 给某一个对象提供一个代理, 并有代理对象控制原来对象的引用.</p>
+<h5 id="优点和缺点"><a href="#优点和缺点" class="headerlink" title="优点和缺点"></a>优点和缺点</h5><p>代理模式能够协调调用者和被调用者, 在一定程度上降低系统的耦合度.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> IObject <span class="keyword">interface</span> &#123; </span><br><span class="line">    ObjDo(action <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Object <span class="keyword">struct</span> &#123; </span><br><span class="line">    action <span class="keyword">string</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(obj *Object)</span> <span class="title">ObjDo</span><span class="params">(action <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;I can %s&quot;</span>, action)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ProxyObject <span class="keyword">struct</span> &#123;</span><br><span class="line">	object *Object</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *ProxyObject)</span> <span class="title">ObjDo</span><span class="params">(action <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> p.object == <span class="literal">nil</span> &#123;</span><br><span class="line">		p.object = <span class="built_in">new</span>(Object)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> action == <span class="string">&quot;run&quot;</span> &#123;</span><br><span class="line">		p.object.ObjDo(action)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-GoF23/Structural结构型模式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -767,69 +816,6 @@
 </ol>
 <h5 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h5><p><img src="/images/2020-10-01/FactoryMethod_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95.png"></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Operator <span class="keyword">interface</span> &#123;</span><br><span class="line">	SetA(<span class="keyword">int</span>)</span><br><span class="line">	SetB(<span class="keyword">int</span>)</span><br><span class="line">	Result() <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> OperatorFactory <span class="keyword">interface</span> &#123;</span><br><span class="line">	Create() Operator</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> OperatorBase <span class="keyword">struct</span> &#123;</span><br><span class="line">	a, b <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SetA 设置 A</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o *OperatorBase)</span> <span class="title">SetA</span><span class="params">(a <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	o.a = a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SetB 设置 B</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o *OperatorBase)</span> <span class="title">SetB</span><span class="params">(b <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	o.b = b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> PlusOperator <span class="keyword">struct</span> &#123;</span><br><span class="line">	*OperatorBase</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> PlusOperatorFactory <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(PlusOperatorFactory)</span> <span class="title">Create</span><span class="params">()</span> <span class="title">Operator</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;PlusOperator&#123;</span><br><span class="line">		OperatorBase: &amp;OperatorBase&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o PlusOperator)</span> <span class="title">Result</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> o.a + o.b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> MinusOperator <span class="keyword">struct</span> &#123;</span><br><span class="line">	*OperatorBase</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MinusOperatorFactory <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(MinusOperatorFactory)</span> <span class="title">Create</span><span class="params">()</span> <span class="title">Operator</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;MinusOperator&#123;</span><br><span class="line">		OperatorBase: &amp;OperatorBase&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o MinusOperator)</span> <span class="title">Result</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> o.a - o.b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="dep-golang-Golang/关于Golang-包管理工具的介绍"  class="article article-type-dep-golang" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2020/08/12/Golang/%E5%85%B3%E4%BA%8EGolang-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BB%8B%E7%BB%8D/">关于Golang 包管理工具的介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2020/08/12/Golang/%E5%85%B3%E4%BA%8EGolang-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BB%8B%E7%BB%8D/" class="article-date">
-	  <time datetime="2020-08-12T03:37:18.000Z" itemprop="datePublished">2020-08-12</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/Golang%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/">Golang的第三方库的使用</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Golang官方依赖管理工具：dep"><a href="#Golang官方依赖管理工具：dep" class="headerlink" title="Golang官方依赖管理工具：dep"></a>Golang官方依赖管理工具：dep</h2><p>就像 <code>npm or yarn</code> 一样的包管理工具.</p>
-<h3 id="dep-和-go-get-有什么区别"><a href="#dep-和-go-get-有什么区别" class="headerlink" title="dep 和 go get 有什么区别"></a>dep 和 go get 有什么区别</h3><ul>
-<li><p>go get<br>可以通过外部包安装在自己的 <code>$ GOPATH / src / github.com /</code>下面供自己用.<br>自己的其他项目也可共同使用这些外部的地方库.</p>
-</li>
-<li><p>dep<br>主要是和自己某一个项目相关的依赖库下载到自己的项目包里面, 通常会下载到 <code>vendor</code> 文件下面, 通过使用 <code>dep ensure</code> 根据<code>Gopkg.toml,Gopkg.lock</code> 来更新以来库. </p>
-</li>
-</ul>
-<h3 id="Dep-的使用方法"><a href="#Dep-的使用方法" class="headerlink" title="Dep 的使用方法"></a>Dep 的使用方法</h3><ul>
-<li>首先需要安装<br><code>$ go get -u github.com/golang/dep/cmd/dep</code></li>
-</ul>
-<ul>
-<li>dep 命令的说明</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ dep help</span><br><span class="line">dep is a tool for managing dependencies for Go projects</span><br><span class="line"></span><br><span class="line">Usage: dep &lt;command&gt;</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line"></span><br><span class="line">  init    Initialize a new project with manifest and lock files</span><br><span class="line">  status  Report the status of the project&#39;s dependencies</span><br><span class="line">  ensure  Ensure a dependency is safely vendored in the project</span><br><span class="line">  prune   Prune the vendor tree of unused packages</span><br><span class="line"></span><br><span class="line">Examples:</span><br><span class="line">  dep init                          set up a new project</span><br><span class="line">  dep ensure                        install the project&#39;s dependencies</span><br><span class="line">  dep ensure -update                update the locked versions of all dependencies</span><br><span class="line">  dep ensure github.com&#x2F;pkg&#x2F;errors  add a dependency to the project</span><br><span class="line"></span><br><span class="line">Use &quot;dep help [command]&quot; for more information about a command.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>上面是英文版的, 小弟英文一般般, 翻译一下.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ dep help</span><br><span class="line"> dep 是Golang的一个包管理工具.</span><br><span class="line"></span><br><span class="line">  使用方法：dep &lt;命令&gt;</span><br><span class="line"></span><br><span class="line">命令:</span><br><span class="line"></span><br><span class="line">  init    项目的初始化,在时候用过程中生成第三方包列表文件[Gopkg.toml]和锁文件[Gopkg.lock]</span><br><span class="line"></span><br><span class="line">  status  项目中文件的状态会报告给你</span><br><span class="line"></span><br><span class="line">  ensure  会安全的根据[Gopkg.toml] [Gopkg.lock]的版本进行更新.</span><br><span class="line"> </span><br><span class="line">  prune   如果代码更新,或者第三包不在使用的时候,可以使用该命令进行删除</span><br><span class="line"></span><br><span class="line">例:</span><br><span class="line">  dep init                          项目初期化</span><br><span class="line">  dep ensure                        依赖文件进行安装</span><br><span class="line">  dep ensure -update                全部的依赖包进行升级</span><br><span class="line">  dep ensure github.com&#x2F;pkg&#x2F;errors  添加新的依赖包</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
