@@ -192,6 +192,55 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-GoF23/AbstractFactory抽象工厂设计"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/10/30/GoF23/AbstractFactory%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/">抽象工厂设计模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/10/30/GoF23/AbstractFactory%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/" class="article-date">
+	  <time datetime="2020-10-29T15:00:00.000Z" itemprop="datePublished">2020-10-30</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="抽象方法设计"><a href="#抽象方法设计" class="headerlink" title="抽象方法设计"></a>抽象方法设计</h5><p>抽象工厂提供了一些列相关活相互依赖对象的接口, 而无需指定他们具体的类, 具体的工厂负责实现具体的产品实例.<br>用一组抽象的对象创建产品, 而不需要关心内部做了什么处理.</p>
+<p>抽象工厂模式与工厂方法模式最大的区别在于，工厂方法模式针对的是一个产品等级结构，而抽象工厂模式则需要面对多个产品等级结构，<br>一个工厂等级结构可以负责多个不同产品等级结构中的产品对象的创建 。当一个工厂等级结构可以创建出分属于不同产品等级结构的一个<br>产品族中的所有对象时，抽象工厂模式比工厂方法模式更为简单、有效率。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Factory <span class="keyword">interface</span> &#123;</span><br><span class="line">	CreateProduct() Product</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Product <span class="keyword">interface</span> &#123;</span><br><span class="line">	Describe()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体的产品</span></span><br><span class="line"><span class="keyword">type</span> ConcreteProduct <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(conproduct *ConcreteProduct)</span> <span class="title">Describe</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(conproduct.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体工厂</span></span><br><span class="line"><span class="keyword">type</span> ConCreteFactory <span class="keyword">struct</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(confactory *ConCreteFactory)</span> <span class="title">CreateProduct</span><span class="params">()</span> <span class="title">Product</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;ConcreteProduct&#123;Name: <span class="string">&quot;KG&quot;</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-GoF23/FactoryMethod工厂方法设计模式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -215,7 +264,7 @@
 <li>GoF23</li>
 <li>创建型模式</li>
 </ul>
-<h5 id="工厂设计"><a href="#工厂设计" class="headerlink" title="工厂设计"></a>工厂设计</h5><p>工厂方法模式(Factory Method Pattern)又称为工厂模式，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，<br>即通过不同的工厂子类来创建不同的产品对象。</p>
+<h5 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h5><p>工厂方法模式(Factory Method Pattern)又称为工厂模式，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，<br>即通过不同的工厂子类来创建不同的产品对象。</p>
 <h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>– 优点</p>
 <ol>
 <li>符合<code>开闭</code>原则, 具有很强的扩展性,弹性和可维护性</li>
@@ -972,165 +1021,12 @@
 
 
   
-    <article id="post-Tech/Internet-Protocol"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
+
+
+  <nav id="page-nav">
     
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/12/08/Tech/Internet-Protocol/">处理响应</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/12/08/Tech/Internet-Protocol/" class="article-date">
-	  <time datetime="2019-12-07T15:00:00.000Z" itemprop="datePublished">2019-12-08</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/">网络协议</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><p>   目前为止我们已经发起了各种各样的请求，也看到了服务器发回的原始 HTTP 数据。服务器返回的原始数据就是所谓的响应。本章我们会分析 HTTP 响应里的各种组成部分。</p>
-<h3 id="2-常见的HTTP状态码"><a href="#2-常见的HTTP状态码" class="headerlink" title="2.常见的HTTP状态码"></a>2.常见的HTTP状态码</h3><table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>状态文本</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>200</td>
-<td>ok</td>
-<td>客户端请求成功</td>
-</tr>
-<tr>
-<td>302</td>
-<td>302 Found 临时重定向</td>
-<td>临时重定向，在Location响应首部的值仍为新的URL(显示重定向)</td>
-</tr>
-<tr>
-<td>400</td>
-<td>Bad Request</td>
-<td>错误请求。由于语法错误，该请求无法完成</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden 禁止访问</td>
-<td>禁止访问，服务器拒绝响应</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found</td>
-<td>请求的资源不存在</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error</td>
-<td>服务器发生了不可预期的错误</td>
-</tr>
-</tbody></table>
-<p><img src="/images/2018-12-08/http_status.png"></p>
-<blockquote>
-<p>作为一个 web 开发者，你应该熟知上面的响应状态码和其代表的含义。</p>
-</blockquote>
-<h3 id="3-常见的HTTP请求头"><a href="#3-常见的HTTP请求头" class="headerlink" title="3.常见的HTTP请求头"></a>3.常见的HTTP请求头</h3><table>
-<thead>
-<tr>
-<th>请求头</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Accept-charset</td>
-<td>用于指定客户端接受的字符集</td>
-</tr>
-<tr>
-<td>Accept-Encoding</td>
-<td>Accept-Encoding    用于指定可接受的内容编码。如：Accept-Encoding：gzip，deflate</td>
-</tr>
-<tr>
-<td>Accept-Language</td>
-<td>用于指定一种自然语言。如：Accept-Language：zh-CN</td>
-</tr>
-<tr>
-<td>Host</td>
-<td>用于指定被请求资源的Internet主机和端口号。如：Host：<a target="_blank" rel="noopener" href="http://www.taobao.com/">www.taobao.com</a></td>
-</tr>
-<tr>
-<td>User-Agent</td>
-<td>客户端将它的操作系统、浏览器和其他属性告诉服务器。 如：User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36</td>
-</tr>
-<tr>
-<td>Connection</td>
-<td>当前连接是否保持。如：Connection：Keep-Alive</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>一般前端请求后端API接口的时候, 最好添加一些响应头</p>
-</blockquote>
-<h3 id="4-常见的HTTP响应头"><a href="#4-常见的HTTP响应头" class="headerlink" title="4.常见的HTTP响应头"></a>4.常见的HTTP响应头</h3><table>
-<thead>
-<tr>
-<th>响应头</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Server</td>
-<td>使用的服务器名称。如：Server：Apache／1.3.6（Unix）</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>用来指明发送给接收者的实体正文的媒体类型。如：Content-Type：text/html；charset=utf-8</td>
-</tr>
-<tr>
-<td>Content-Encoding</td>
-<td>与请求头Accept-Encoding对应，告诉浏览器服务端采用的是什么压缩编码</td>
-</tr>
-<tr>
-<td>Content-Language</td>
-<td>描述了资源所用的自然语言，与Accept-Language对应</td>
-</tr>
-<tr>
-<td>Content-Length</td>
-<td>指明实体正文的长度，用以字节方式存储的十进制数字来表示</td>
-</tr>
-<tr>
-<td>Keep-Live</td>
-<td>保持连接时间。如：Keep-Live：timeout=5，max=120</td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+  </nav>
 
 </section>
         
