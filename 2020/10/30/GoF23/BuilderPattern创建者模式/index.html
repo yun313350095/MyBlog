@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Noonde</title>
+  <title>造者模式golang | Noonde</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Noonde" />
@@ -11,19 +11,19 @@
   
   
   
-  <meta name="description" content="title: 工厂方法设计模式Golangdate: 2020-10-01categories: 设计模式tags:  GoF23 创建型模式  工厂方法模式工厂方法模式(Factory Method Pattern)又称为工厂模式，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，即通过不同的工厂子类来创建不同的产品对象。 优点 和 缺点– 优点  符合开闭原则, 具">
+  <meta name="description" content="造者模式(Builder Pattern)将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。抽象建造者类中定义了产品的创建方法和返回方法.建造者模式的结构中还引入了一个指挥者类Director，该类的作用主要有两个：一方面它隔离了客户与生产过程；另一方面它负责控制产品的生成过程。指挥者针对抽象建造者编程，客户端只需要知道具体建造者的类型，即可通过指挥者类调用建造者的相关方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Noonde">
-<meta property="og:url" content="https://noonde.com/2020/10/25/GoF23/FactoryMethod%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="造者模式Golang">
+<meta property="og:url" content="https://noonde.com/2020/10/30/GoF23/BuilderPattern%E5%88%9B%E5%BB%BA%E8%80%85%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Noonde">
-<meta property="og:description" content="title: 工厂方法设计模式Golangdate: 2020-10-01categories: 设计模式tags:  GoF23 创建型模式  工厂方法模式工厂方法模式(Factory Method Pattern)又称为工厂模式，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，即通过不同的工厂子类来创建不同的产品对象。 优点 和 缺点– 优点  符合开闭原则, 具">
+<meta property="og:description" content="造者模式(Builder Pattern)将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。抽象建造者类中定义了产品的创建方法和返回方法.建造者模式的结构中还引入了一个指挥者类Director，该类的作用主要有两个：一方面它隔离了客户与生产过程；另一方面它负责控制产品的生成过程。指挥者针对抽象建造者编程，客户端只需要知道具体建造者的类型，即可通过指挥者类调用建造者的相关方法">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://noonde.com/images/2020-10-01/FactoryMethod_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95.png">
-<meta property="article:published_time" content="2020-10-25T07:56:00.256Z">
-<meta property="article:modified_time" content="2020-10-30T14:40:06.430Z">
+<meta property="article:published_time" content="2020-10-29T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-10-31T06:09:32.713Z">
 <meta property="article:author" content="Yunling Zhang">
+<meta property="article:tag" content="GoF23">
+<meta property="article:tag" content="创建型模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://noonde.com/images/2020-10-01/FactoryMethod_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95.png">
   
     <link rel="alternate" href="/atom.xml" title="Noonde" type="application/atom+xml">
   
@@ -169,17 +169,29 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-GoF23/FactoryMethod工厂方法设计模式" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-GoF23/BuilderPattern创建者模式" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      造者模式Golang
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
-	<a href="/2020/10/25/GoF23/FactoryMethod%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-date">
-	  <time datetime="2020-10-25T07:56:00.256Z" itemprop="datePublished">2020-10-25</time>
+	<a href="/2020/10/30/GoF23/BuilderPattern%E5%88%9B%E5%BB%BA%E8%80%85%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2020-10-29T15:00:00.000Z" itemprop="datePublished">2020-10-30</time>
 	</a>
 
       
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
       
 	<a class="article-views">
 	<span id="busuanzi_container_page_pv">
@@ -192,26 +204,8 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p>title: 工厂方法设计模式Golang<br>date: 2020-10-01<br>categories: 设计模式<br>tags:</p>
-<ul>
-<li>GoF23</li>
-<li>创建型模式</li>
-</ul>
-<h5 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h5><p>工厂方法模式(Factory Method Pattern)又称为工厂模式，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，<br>即通过不同的工厂子类来创建不同的产品对象。</p>
-<h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>– 优点</p>
-<ol>
-<li>符合<code>开闭</code>原则, 具有很强的扩展性,弹性和可维护性</li>
-<li>可以很好的对累进行约束,</li>
-<li>客户只需要知道所需产品的具体工厂，而无须知道具体工厂的创建产品的过程，甚至不需要知道具体产品的类名</li>
-</ol>
-<p>– 缺点</p>
-<ol>
-<li>每增加一个产品时,都需要一个具体类和一个具体创建者,增加体统类的数目增多, 复杂性增加</li>
-<li>对简单工厂，增加功能修改的是工厂类；对工厂方法，增加功能修改的是产品类</li>
-</ol>
-<h5 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h5><p><img src="/images/2020-10-01/FactoryMethod_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95.png"></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Operator <span class="keyword">interface</span> &#123;</span><br><span class="line">	SetA(<span class="keyword">int</span>)</span><br><span class="line">	SetB(<span class="keyword">int</span>)</span><br><span class="line">	Result() <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> OperatorFactory <span class="keyword">interface</span> &#123;</span><br><span class="line">	Create() Operator</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> OperatorBase <span class="keyword">struct</span> &#123;</span><br><span class="line">	a, b <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SetA 设置 A</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o *OperatorBase)</span> <span class="title">SetA</span><span class="params">(a <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	o.a = a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SetB 设置 B</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o *OperatorBase)</span> <span class="title">SetB</span><span class="params">(b <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	o.b = b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> PlusOperator <span class="keyword">struct</span> &#123;</span><br><span class="line">	*OperatorBase</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> PlusOperatorFactory <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(PlusOperatorFactory)</span> <span class="title">Create</span><span class="params">()</span> <span class="title">Operator</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;PlusOperator&#123;</span><br><span class="line">		OperatorBase: &amp;OperatorBase&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o PlusOperator)</span> <span class="title">Result</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> o.a + o.b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> MinusOperator <span class="keyword">struct</span> &#123;</span><br><span class="line">	*OperatorBase</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MinusOperatorFactory <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(MinusOperatorFactory)</span> <span class="title">Create</span><span class="params">()</span> <span class="title">Operator</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;MinusOperator&#123;</span><br><span class="line">		OperatorBase: &amp;OperatorBase&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o MinusOperator)</span> <span class="title">Result</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> o.a - o.b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h5 id="造者模式-Builder-Pattern"><a href="#造者模式-Builder-Pattern" class="headerlink" title="造者模式(Builder Pattern)"></a>造者模式(Builder Pattern)</h5><p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。<br>抽象建造者类中定义了产品的创建方法和返回方法.<br>建造者模式的结构中还引入了一个指挥者类Director，该类的作用主要有两个：一方面它隔离了客户与生产过程；<br>另一方面它负责控制产品的生成过程。指挥者针对抽象建造者编程，客户端只需要知道具体建造者的类型，<br>即可通过指挥者类调用建造者的相关方法，返回一个完整的产品对象.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Wheel <span class="keyword">int</span></span><br><span class="line"><span class="keyword">type</span> Vehicle <span class="keyword">struct</span> &#123;</span><br><span class="line">	Wheels	  Wheel</span><br><span class="line">	Seats 	  <span class="keyword">int</span></span><br><span class="line">	Structure <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//builder interface</span></span><br><span class="line"><span class="keyword">type</span> Builder <span class="keyword">interface</span> &#123;</span><br><span class="line">	SetWheels()		Builder</span><br><span class="line">	SetSeats()		Builder</span><br><span class="line">	SetStructure()  Builder</span><br><span class="line">	GetVehicle()	Vehicle</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Director</span></span><br><span class="line"><span class="keyword">type</span> Director <span class="keyword">struct</span> &#123;</span><br><span class="line">	builder Builder</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(director *Director)</span> <span class="title">Construct</span><span class="params">()</span></span> &#123;</span><br><span class="line">	director.builder.SetWheels().SetSeats().SetStructure()  <span class="comment">//链式调用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(director *Director)</span> <span class="title">SetBuilder</span><span class="params">(builder Builder)</span></span> &#123;</span><br><span class="line">	director.builder = builder</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//car struct</span></span><br><span class="line"><span class="keyword">type</span> Car <span class="keyword">struct</span> &#123;</span><br><span class="line">	vehicle Vehicle</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car *Car)</span> <span class="title">SetWheels</span><span class="params">()</span> <span class="title">Builder</span></span> &#123;</span><br><span class="line">	car.vehicle.Wheels = <span class="number">4</span></span><br><span class="line">	<span class="keyword">return</span> car</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car *Car)</span> <span class="title">SetSeats</span><span class="params">()</span> <span class="title">Builder</span></span> &#123;</span><br><span class="line">	car.vehicle.Seats = <span class="number">4</span></span><br><span class="line">	<span class="keyword">return</span> car</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car *Car)</span> <span class="title">SetStructure</span><span class="params">()</span> <span class="title">Builder</span></span> &#123;</span><br><span class="line">	car.vehicle.Structure = <span class="string">&quot;Car&quot;</span></span><br><span class="line">	<span class="keyword">return</span> car</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car *Car)</span> <span class="title">GetVehicle</span><span class="params">()</span> <span class="title">Vehicle</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> car.vehicle</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
@@ -235,6 +229,8 @@ var a = new Donate({
       
       
         
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GoF23/" rel="tag">GoF23</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">创建型模式</a></li></ul>
+
       
 
     </footer>
@@ -243,19 +239,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/2020/10/30/GoF23/BuilderPattern%E5%88%9B%E5%BB%BA%E8%80%85%E6%A8%A1%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/10/30/GoF23/AbstractFactory%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          造者模式Golang
+          抽象工厂设计模式Golang
         
       </div>
     </a>
   
   
-    <a href="/2020/10/20/GoF23/SimpleFactory%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/10/25/GoF23/FactoryMethod%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">简单工厂设计模式Golang</div>
+      <div class="article-nav-title"></div>
     </a>
   
 </nav>
@@ -269,7 +265,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-%E5%92%8C-%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点 和 缺点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UML"><span class="nav-number">3.</span> <span class="nav-text">UML</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F-Builder-Pattern"><span class="nav-number">1.</span> <span class="nav-text">造者模式(Builder Pattern)</span></a></li></ol>
     
     </div>
   </aside>
