@@ -11,15 +11,15 @@
   
   
   
-  <meta name="description" content="代理模式代理模式(Proxy Pattern): 给某一个对象提供一个代理, 并有代理对象控制原来对象的引用. 优点和缺点代理模式能够协调调用者和被调用者, 在一定程度上降低系统的耦合度. 1234567891011121314151617181920212223242526type IObject interface &amp;#123;     ObjDo(action string)&amp;#125;ty">
+  <meta name="description" content="桥接模式桥接模式(Bridge Pattern): 将抽象部分和现实分离, 使他们可以独立变化. 它是一种对象结构模式,又称为柄体(Handle and Body)模式或接口(Interface)模式。 优点 和 缺点优点:  分离抽象接口及其实现部分。 桥接模式提高了系统的可扩充性，在两个变化维度中任意扩展一个维度，都不需要修改原有系统。  缺点:  桥接模式的引入会增加系统的理解与设计难度，由">
 <meta property="og:type" content="article">
 <meta property="og:title" content="代理模式Golang">
-<meta property="og:url" content="https://noonde.com/2020/11/05/GoF23/proxy%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:url" content="https://noonde.com/2020/11/07/GoF23/Bridge%E6%9E%B6%E6%A1%A5/index.html">
 <meta property="og:site_name" content="Noonde">
-<meta property="og:description" content="代理模式代理模式(Proxy Pattern): 给某一个对象提供一个代理, 并有代理对象控制原来对象的引用. 优点和缺点代理模式能够协调调用者和被调用者, 在一定程度上降低系统的耦合度. 1234567891011121314151617181920212223242526type IObject interface &amp;#123;     ObjDo(action string)&amp;#125;ty">
+<meta property="og:description" content="桥接模式桥接模式(Bridge Pattern): 将抽象部分和现实分离, 使他们可以独立变化. 它是一种对象结构模式,又称为柄体(Handle and Body)模式或接口(Interface)模式。 优点 和 缺点优点:  分离抽象接口及其实现部分。 桥接模式提高了系统的可扩充性，在两个变化维度中任意扩展一个维度，都不需要修改原有系统。  缺点:  桥接模式的引入会增加系统的理解与设计难度，由">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-11-04T15:00:00.000Z">
-<meta property="article:modified_time" content="2020-10-31T15:19:15.557Z">
+<meta property="article:published_time" content="2020-11-06T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-11-01T06:25:46.801Z">
 <meta property="article:author" content="Yunling Zhang">
 <meta property="article:tag" content="GoF23">
 <meta property="article:tag" content="结构型模式">
@@ -169,7 +169,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-GoF23/proxy代理模式设计" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-GoF23/Bridge架桥" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -185,8 +185,8 @@
     
     <div class="article-meta">
       
-	<a href="/2020/11/05/GoF23/proxy%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1/" class="article-date">
-	  <time datetime="2020-11-04T15:00:00.000Z" itemprop="datePublished">2020-11-05</time>
+	<a href="/2020/11/07/GoF23/Bridge%E6%9E%B6%E6%A1%A5/" class="article-date">
+	  <time datetime="2020-11-06T15:00:00.000Z" itemprop="datePublished">2020-11-07</time>
 	</a>
 
       
@@ -204,9 +204,17 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h5><p>代理模式(Proxy Pattern): 给某一个对象提供一个代理, 并有代理对象控制原来对象的引用.</p>
-<h5 id="优点和缺点"><a href="#优点和缺点" class="headerlink" title="优点和缺点"></a>优点和缺点</h5><p>代理模式能够协调调用者和被调用者, 在一定程度上降低系统的耦合度.</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> IObject <span class="keyword">interface</span> &#123; </span><br><span class="line">    ObjDo(action <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Object <span class="keyword">struct</span> &#123; </span><br><span class="line">    action <span class="keyword">string</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(obj *Object)</span> <span class="title">ObjDo</span><span class="params">(action <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;I can %s&quot;</span>, action)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ProxyObject <span class="keyword">struct</span> &#123;</span><br><span class="line">	object *Object</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *ProxyObject)</span> <span class="title">ObjDo</span><span class="params">(action <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> p.object == <span class="literal">nil</span> &#123;</span><br><span class="line">		p.object = <span class="built_in">new</span>(Object)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> action == <span class="string">&quot;run&quot;</span> &#123;</span><br><span class="line">		p.object.ObjDo(action)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        <h5 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h5><p>桥接模式(Bridge Pattern): 将抽象部分和现实分离, 使他们可以独立变化. 它是一种对象结构模式,<br>又称为柄体(Handle and Body)模式或接口(Interface)模式。</p>
+<h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>优点:</p>
+<ol>
+<li>分离抽象接口及其实现部分。</li>
+<li>桥接模式提高了系统的可扩充性，在两个变化维度中任意扩展一个维度，都不需要修改原有系统。</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>桥接模式的引入会增加系统的理解与设计难度，由于聚合关联关系建立在抽象层，要求开发者针对抽象进</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> AbstractMessage <span class="keyword">interface</span> &#123;</span><br><span class="line">	SendMessage(text, to <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MessageImplementer <span class="keyword">interface</span> &#123;</span><br><span class="line">	Send(text, to <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MessageSMS <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ViaSMS</span><span class="params">()</span> <span class="title">MessageImplementer</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;MessageSMS&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *MessageSMS)</span> <span class="title">Send</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;send %s to %s via Email&quot;</span>, text, to)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MessageEmail <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ViaEmail</span><span class="params">()</span> <span class="title">MessageImplementer</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;MessageEmail&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*MessageEmail)</span> <span class="title">Send</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;send %s to %s via Email&quot;</span>, text, to)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CommonMessage <span class="keyword">struct</span> &#123;</span><br><span class="line">	method MessageImplementer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewCommonMessage</span><span class="params">(method MessageImplementer)</span> *<span class="title">CommonMessage</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;CommonMessage&#123;</span><br><span class="line">		method: method,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *CommonMessage)</span> <span class="title">SendMessage</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	m.method.Send(text, to)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UrgencyMessage <span class="keyword">struct</span> &#123;</span><br><span class="line">	method MessageImplementer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewUrgencyMessage</span><span class="params">(method MessageImplementer)</span> *<span class="title">UrgencyMessage</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;UrgencyMessage&#123;</span><br><span class="line">		method: method,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *UrgencyMessage)</span> <span class="title">SendMessage</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	m.method.Send(fmt.Sprintf(<span class="string">&quot;[Urgency] %s&quot;</span>, text), to)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
@@ -240,19 +248,10 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/2020/11/07/GoF23/Bridge%E6%9E%B6%E6%A1%A5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          代理模式Golang
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/11/04/GoF23/Structural%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/11/05/GoF23/proxy%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">适配器模式模式Golang</div>
+      <div class="article-nav-title">代理模式Golang</div>
     </a>
   
 </nav>
@@ -266,7 +265,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">代理模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9%E5%92%8C%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点和缺点</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">桥接模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-%E5%92%8C-%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点 和 缺点</span></a></li></ol>
     
     </div>
   </aside>

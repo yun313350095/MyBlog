@@ -192,6 +192,63 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-GoF23/Bridge架桥"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/11/07/GoF23/Bridge%E6%9E%B6%E6%A1%A5/">代理模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/11/07/GoF23/Bridge%E6%9E%B6%E6%A1%A5/" class="article-date">
+	  <time datetime="2020-11-06T15:00:00.000Z" itemprop="datePublished">2020-11-07</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h5><p>桥接模式(Bridge Pattern): 将抽象部分和现实分离, 使他们可以独立变化. 它是一种对象结构模式,<br>又称为柄体(Handle and Body)模式或接口(Interface)模式。</p>
+<h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>优点:</p>
+<ol>
+<li>分离抽象接口及其实现部分。</li>
+<li>桥接模式提高了系统的可扩充性，在两个变化维度中任意扩展一个维度，都不需要修改原有系统。</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>桥接模式的引入会增加系统的理解与设计难度，由于聚合关联关系建立在抽象层，要求开发者针对抽象进</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> AbstractMessage <span class="keyword">interface</span> &#123;</span><br><span class="line">	SendMessage(text, to <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MessageImplementer <span class="keyword">interface</span> &#123;</span><br><span class="line">	Send(text, to <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MessageSMS <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ViaSMS</span><span class="params">()</span> <span class="title">MessageImplementer</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;MessageSMS&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *MessageSMS)</span> <span class="title">Send</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;send %s to %s via Email&quot;</span>, text, to)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MessageEmail <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ViaEmail</span><span class="params">()</span> <span class="title">MessageImplementer</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;MessageEmail&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*MessageEmail)</span> <span class="title">Send</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;send %s to %s via Email&quot;</span>, text, to)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CommonMessage <span class="keyword">struct</span> &#123;</span><br><span class="line">	method MessageImplementer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewCommonMessage</span><span class="params">(method MessageImplementer)</span> *<span class="title">CommonMessage</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;CommonMessage&#123;</span><br><span class="line">		method: method,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *CommonMessage)</span> <span class="title">SendMessage</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	m.method.Send(text, to)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UrgencyMessage <span class="keyword">struct</span> &#123;</span><br><span class="line">	method MessageImplementer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewUrgencyMessage</span><span class="params">(method MessageImplementer)</span> *<span class="title">UrgencyMessage</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;UrgencyMessage&#123;</span><br><span class="line">		method: method,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *UrgencyMessage)</span> <span class="title">SendMessage</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	m.method.Send(fmt.Sprintf(<span class="string">&quot;[Urgency] %s&quot;</span>, text), to)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-GoF23/proxy代理模式设计"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -756,66 +813,6 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestStrategy</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	a := assert.New(t)</span><br><span class="line"> 	p := PayType&#123;&#125;</span><br><span class="line"></span><br><span class="line">	p.SetPayment(&amp;Alipay&#123;&#125;)</span><br><span class="line">	a.Equal(<span class="string">&quot;Pay by Alipay 10&quot;</span>,  p.Pay())</span><br><span class="line">	a.Equal(<span class="string">&quot;Refund by Alipay 10&quot;</span>,  p.Pay())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-GoF23/FactoryMethod工厂方法设计模式"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2020/10/01/GoF23/FactoryMethod%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">工厂方法设计模式Golang</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2020/10/01/GoF23/FactoryMethod%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="article-date">
-	  <time datetime="2020-09-30T15:00:00.000Z" itemprop="datePublished">2020-10-01</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h5><p>工厂方法模式(Factory Method Pattern)又称为工厂模式，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，<br>即通过不同的工厂子类来创建不同的产品对象。</p>
-<h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>– 优点</p>
-<ol>
-<li>符合<code>开闭</code>原则, 具有很强的扩展性,弹性和可维护性</li>
-<li>可以很好的对累进行约束,</li>
-<li>客户只需要知道所需产品的具体工厂，而无须知道具体工厂的创建产品的过程，甚至不需要知道具体产品的类名</li>
-</ol>
-<p>– 缺点</p>
-<ol>
-<li>每增加一个产品时,都需要一个具体类和一个具体创建者,增加体统类的数目增多, 复杂性增加</li>
-<li>对简单工厂，增加功能修改的是工厂类；对工厂方法，增加功能修改的是产品类</li>
-</ol>
-<h5 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h5><p><img src="/images/2020-10-01/FactoryMethod_%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95.png"></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Operator <span class="keyword">interface</span> &#123;</span><br><span class="line">	SetA(<span class="keyword">int</span>)</span><br><span class="line">	SetB(<span class="keyword">int</span>)</span><br><span class="line">	Result() <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> OperatorFactory <span class="keyword">interface</span> &#123;</span><br><span class="line">	Create() Operator</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> OperatorBase <span class="keyword">struct</span> &#123;</span><br><span class="line">	a, b <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SetA 设置 A</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o *OperatorBase)</span> <span class="title">SetA</span><span class="params">(a <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	o.a = a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//SetB 设置 B</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o *OperatorBase)</span> <span class="title">SetB</span><span class="params">(b <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	o.b = b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> PlusOperator <span class="keyword">struct</span> &#123;</span><br><span class="line">	*OperatorBase</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> PlusOperatorFactory <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(PlusOperatorFactory)</span> <span class="title">Create</span><span class="params">()</span> <span class="title">Operator</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;PlusOperator&#123;</span><br><span class="line">		OperatorBase: &amp;OperatorBase&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o PlusOperator)</span> <span class="title">Result</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> o.a + o.b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> MinusOperator <span class="keyword">struct</span> &#123;</span><br><span class="line">	*OperatorBase</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MinusOperatorFactory <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(MinusOperatorFactory)</span> <span class="title">Create</span><span class="params">()</span> <span class="title">Operator</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;MinusOperator&#123;</span><br><span class="line">		OperatorBase: &amp;OperatorBase&#123;&#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(o MinusOperator)</span> <span class="title">Result</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> o.a - o.b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
