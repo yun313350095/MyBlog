@@ -192,6 +192,113 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-GoF23/Facade外观模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/11/01/GoF23/Facade%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">外观模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/11/01/GoF23/Facade%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2020-10-31T15:00:00.000Z" itemprop="datePublished">2020-11-01</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h5><p>外观模式(Facade Pattern): 隐藏系统的复杂, 提供一个统一的接口, 用来访问子系统的一群接口.<br>这种类型的设计模式属于结构型模式，它向现有的系统添加一个接口，来隐藏系统的复杂性。</p>
+<h6 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h6><p>优点:</p>
+<ol>
+<li>减少系统相互依赖。 </li>
+<li>提高灵活性。 </li>
+<li>提高了安全性。</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>不能很好地限制客户使用子系统类，很容易带来未知风险。</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Shape <span class="keyword">interface</span> &#123;</span><br><span class="line">    Draw()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Circle <span class="keyword">struct</span> &#123;</span><br><span class="line">    radius <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c Circle)</span> <span class="title">Draw</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Draw a circle:&quot;</span>, c.radius)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rectangle <span class="keyword">struct</span> &#123;</span><br><span class="line">    length <span class="keyword">float64</span></span><br><span class="line">    width  <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r Rectangle)</span> <span class="title">Draw</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;Draw a rectangle length:%f,width:%f&quot;</span>, r.length, r.width)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Square <span class="keyword">struct</span> &#123;</span><br><span class="line">    width <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Square)</span> <span class="title">Draw</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;Draw a square:%f&quot;</span>, s.width)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ShapeMaker <span class="keyword">struct</span> &#123;</span><br><span class="line">    circle    Circle</span><br><span class="line">    rectangle Rectangle</span><br><span class="line">    square    Square</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(maker ShapeMaker)</span> <span class="title">DrawCircle</span><span class="params">()</span></span> &#123;</span><br><span class="line">    maker.circle.Draw()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(maker ShapeMaker)</span> <span class="title">DrawRectangle</span><span class="params">()</span></span> &#123;</span><br><span class="line">    maker.rectangle.Draw()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(maker ShapeMaker)</span> <span class="title">DrawSquare</span><span class="params">()</span></span> &#123;</span><br><span class="line">    maker.square.Draw()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+    <article id="post-GoF23/AbstractFactory抽象工厂设计"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/10/30/GoF23/AbstractFactory%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/">抽象工厂设计模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/10/30/GoF23/AbstractFactory%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/" class="article-date">
+	  <time datetime="2020-10-29T15:00:00.000Z" itemprop="datePublished">2020-10-30</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="抽象方法设计"><a href="#抽象方法设计" class="headerlink" title="抽象方法设计"></a>抽象方法设计</h5><p>抽象工厂提供了一些列相关活相互依赖对象的接口, 而无需指定他们具体的类, 具体的工厂负责实现具体的产品实例.<br>用一组抽象的对象创建产品, 而不需要关心内部做了什么处理.</p>
+<p>抽象工厂模式与工厂方法模式最大的区别在于，工厂方法模式针对的是一个产品等级结构，而抽象工厂模式则需要面对多个产品等级结构，<br>一个工厂等级结构可以负责多个不同产品等级结构中的产品对象的创建 。当一个工厂等级结构可以创建出分属于不同产品等级结构的一个<br>产品族中的所有对象时，抽象工厂模式比工厂方法模式更为简单、有效率。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Factory <span class="keyword">interface</span> &#123;</span><br><span class="line">	CreateProduct() Product</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Product <span class="keyword">interface</span> &#123;</span><br><span class="line">	Describe()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体的产品</span></span><br><span class="line"><span class="keyword">type</span> ConcreteProduct <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(conproduct *ConcreteProduct)</span> <span class="title">Describe</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(conproduct.Name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体工厂</span></span><br><span class="line"><span class="keyword">type</span> ConCreteFactory <span class="keyword">struct</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(confactory *ConCreteFactory)</span> <span class="title">CreateProduct</span><span class="params">()</span> <span class="title">Product</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;ConcreteProduct&#123;Name: <span class="string">&quot;KG&quot;</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-GoF23/BuilderPattern创建者模式"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -728,286 +835,6 @@
 <h5 id="信息流广告-特点"><a href="#信息流广告-特点" class="headerlink" title="信息流广告-特点"></a>信息流广告-特点</h5><p>(1) 内容的价值性: 原生广告为受众提供的是有价值有意义的内容,而不是单纯的广告信息.</p>
 <p>(2) 内容的原生性: 内容的植入和呈现不破坏页面本身的和谐, 不是为了抢消费者的注意力儿突兀出现.</p>
 <p>(3) 用户的主动性: 用户乐于阅读, 乐于分享, 乐于参与其中, 每个用户都可能成为扩散着.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="graphql-golang-Golang/Go语言的GraphQL实践总结"  class="article article-type-graphql-golang" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/12/15/Golang/Go%E8%AF%AD%E8%A8%80%E7%9A%84GraphQL%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/">Go语言的GraphQL实践总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/12/15/Golang/Go%E8%AF%AD%E8%A8%80%E7%9A%84GraphQL%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93/" class="article-date">
-	  <time datetime="2019-12-15T14:49:53.000Z" itemprop="datePublished">2019-12-15</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/Golang%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/">Golang的第三方库的使用</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="GraphQL-介绍"><a href="#GraphQL-介绍" class="headerlink" title="GraphQL 介绍"></a>GraphQL 介绍</h2><p>REST API的使用方式是，server定义一系列的接口，client调用自己需要的接口，获取目标数据进行整合。REST API开发中遇到的问题：</p>
-<ul>
-<li>扩展性 ，随着API的不断发展，REST API的接口会变得越来臃肿。</li>
-<li>无法按需获取 ，一个返回id, name, age, city, addr, email的接口，如果仅获取部分信息，如name, age，却必须返回接口的全部信息，然后从中提取自己需要的。坏处不仅会增加网络传输量，并且不便于client处理数据</li>
-<li>一个请求无法获取所需全部资源 ，例如client需要显示一篇文章的内容，同时要显示评论，作者信息，那么就需要调用文章、评论、用户的接口。坏处造成服务的的维护困难，以及响应时间变长 。 </li>
-<li>原因： REST API通常由多个端点组成，每个端点代表一种资源。所以，当client需要多个资源是，它需要向REST API发起多个请求，才能获取到所需要的数据。</li>
-<li>REST API不好处理的问题 ， 比如确保client提供的参数是类型安全的，如何从代码生成API的文档等。</li>
-<li>避免了 N+1的出现。</li>
-</ul>
-<p>如何定义Schema<br>schema用来描述对于接口获取数据逻辑 ，GraphQL中使用Query来抽象数据的查询逻辑，分为三种，分别是query（查询）、mutation（更改）、subscription（订阅） 。API的接口概括起来有CRUD（创建、获取、更改、删除）四类，query可以覆盖R（获取）的功能，mutation可以覆盖（CUD创建、更改、删除）的功能。</p>
-<p>Query</p>
-<ul>
-<li>query（查询）：当获取数据时，选择query类型</li>
-<li>mutation（更改）： 当尝试修改数据时，选择mutation类型</li>
-<li>subscription（订阅）：当希望数据更改时，可以进行消息推送，使用subscription类型（针对当前的日趋流行的real-time应用提出的）。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="intellij-idea-DevTools/IntelliJ-IDEA-For-Mac-快捷键"  class="article article-type-intellij-idea" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/12/12/DevTools/IntelliJ-IDEA-For-Mac-%E5%BF%AB%E6%8D%B7%E9%94%AE/">IntelliJ IDEA For Mac 快捷键</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/12/12/DevTools/IntelliJ-IDEA-For-Mac-%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="article-date">
-	  <time datetime="2019-12-12T14:20:00.000Z" itemprop="datePublished">2019-12-12</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Mac键盘符号和修饰键说明"><a href="#Mac键盘符号和修饰键说明" class="headerlink" title="Mac键盘符号和修饰键说明"></a>Mac键盘符号和修饰键说明</h2><ul>
-<li>⌘ Command</li>
-<li>⇧ Shift</li>
-<li>⌥ Option</li>
-<li>⌃ Control</li>
-<li>↩︎ Return/Enter</li>
-<li>⌫ Delete</li>
-<li>⌦ 向前删除键（Fn+Delete）</li>
-<li>↑ 上箭头</li>
-<li>↓ 下箭头</li>
-<li>← 左箭头</li>
-<li>→ 右箭头</li>
-<li>⇞ Page Up（Fn+↑）</li>
-<li>⇟ Page Down（Fn+↓）</li>
-<li>Home Fn + ←</li>
-<li>End Fn + →</li>
-<li>⇥ 右制表符（Tab键）</li>
-<li>⇤ 左制表符（Shift+Tab）</li>
-<li>⎋ Escape (Esc)</li>
-</ul>
-<h3 id="一、Editing（编辑）"><a href="#一、Editing（编辑）" class="headerlink" title="一、Editing（编辑）"></a>一、Editing（编辑）</h3><ul>
-<li>Control + Space 基本的代码补全（补全任何类、方法、变量）</li>
-<li>Control + Shift + Space 智能代码补全（过滤器方法列表和变量的预期类型）</li>
-<li>Command + Shift + Enter 自动结束代码，行末自动添加分号</li>
-<li>Command + P 显示方法的参数信息</li>
-<li>Control + J 快速查看文档</li>
-<li>Shift + F1 查看外部文档（在某些代码上会触发打开浏览器显示相关文档）</li>
-<li>Command + 鼠标放在代码上 显示代码简要信息</li>
-<li>Command + F1 在错误或警告处显示具体描述信息</li>
-<li>Command + N, Control + Enter, Control + N 生成代码（getter、setter、构造函数、hashCode/equals,toString）</li>
-<li>Control + O 覆盖方法（重写父类方法）</li>
-<li>Control + I 实现方法（实现接口中的方法）</li>
-<li>Command + Option + T 包围代码（使用if..else, try..catch, for, synchronized等包围选中的代码）</li>
-<li>Command + / 注释/取消注释与行注释</li>
-<li>Command + Option + / 注释/取消注释与块注释</li>
-<li>Option + 方向键上 连续选中代码块</li>
-<li>Option + 方向键下 减少当前选中的代码块</li>
-<li>Control + Shift + Q 显示上下文信息</li>
-<li>Option + Enter 显示意向动作和快速修复代码</li>
-<li>Command + Option + L 格式化代码</li>
-<li>Control + Option + O 优化import</li>
-<li>Control + Option + I 自动缩进线</li>
-<li>Tab / Shift + Tab 缩进代码 / 反缩进代码</li>
-<li>Command + X 剪切当前行或选定的块到剪贴板</li>
-<li>Command + C 复制当前行或选定的块到剪贴板</li>
-<li>Command + V 从剪贴板粘贴</li>
-<li>Command + Shift + V 从最近的缓冲区粘贴</li>
-<li>Command + D 复制当前行或选定的块</li>
-<li>Command + Delete 删除当前行或选定的块的行</li>
-<li>Control + Shift + J 智能的将代码拼接成一行</li>
-<li>Command + Enter 智能的拆分拼接的行</li>
-<li>Shift + Enter 开始新的一行</li>
-<li>Command + Shift + U 大小写切换</li>
-<li>Command + Shift + ] / Command + Shift + [ 选择直到代码块结束/开始</li>
-<li>Option + Fn + Delete 删除到单词的末尾</li>
-<li>Option + Delete 删除到单词的开头</li>
-<li>Command + 加号 / Command + 减号 展开 / 折叠代码块</li>
-<li>Command + Shift + 加号 展开所以代码块</li>
-<li>Command + Shift + 减号 折叠所有代码块</li>
-<li>Command + W 关闭活动的编辑器选项卡</li>
-</ul>
-<h3 id="二、Search-Replace（查询-替换）"><a href="#二、Search-Replace（查询-替换）" class="headerlink" title="二、Search/Replace（查询/替换）"></a>二、Search/Replace（查询/替换）</h3><ul>
-<li>Double Shift 查询任何东西</li>
-<li>Command + F 文件内查找</li>
-<li>Command + G 查找模式下，向下查找</li>
-<li>Command + Shift + G 查找模式下，向上查找</li>
-<li>Command + R 文件内替换</li>
-<li>Command + Shift + F 全局查找（根据路径）</li>
-<li>Command + Shift + R 全局替换（根据路径）</li>
-<li>Command + Shift + S 查询结构（Ultimate Edition 版专用，需要在Keymap中设置）</li>
-<li>Command + Shift + M 替换结构（Ultimate Edition 版专用，需要在Keymap中设置）</li>
-</ul>
-<h3 id="三、Usage-Search（使用查询）"><a href="#三、Usage-Search（使用查询）" class="headerlink" title="三、Usage Search（使用查询）"></a>三、Usage Search（使用查询）</h3><ul>
-<li>Option + F7 / Command + F7 在文件中查找用法 / 在类中查找用法</li>
-<li>Command + Shift + F7 在文件中突出显示的用法</li>
-<li>Command + Option + F7 显示用法</li>
-</ul>
-<h3 id="四、Compile-and-Run（编译和运行）"><a href="#四、Compile-and-Run（编译和运行）" class="headerlink" title="四、Compile and Run（编译和运行）"></a>四、Compile and Run（编译和运行）</h3><ul>
-<li>Command + F9 编译Project</li>
-<li>Command + Shift + F9 编译选择的文件、包或模块</li>
-<li>Control + Option + R 弹出 Run 的可选择菜单</li>
-<li>Control + Option + D 弹出 Debug 的可选择菜单</li>
-<li>Control + R 运行</li>
-<li>Control + D 调试</li>
-<li>Control + Shift + R, Control + Shift + D 从编辑器运行上下文环境配置</li>
-</ul>
-<h3 id="五、Debugging（调试）"><a href="#五、Debugging（调试）" class="headerlink" title="五、Debugging（调试）"></a>五、Debugging（调试）</h3><ul>
-<li>F8 进入下一步，如果当前行断点是一个方法，则不进入当前方法体内</li>
-<li>F7 进入下一步，如果当前行断点是一个方法，则进入当前方法体内，如果该方法体还有方法，则不会进入该内嵌的方法中</li>
-<li>Shift + F7 智能步入，断点所在行上有多个方法调用，会弹出进入哪个方法</li>
-<li>Shift + F8 跳出</li>
-<li>Option + F9 运行到光标处，如果光标前有其他断点会进入到该断点</li>
-<li>Option + F8 计算表达式（可以更改变量值使其生效）</li>
-<li>Command + Option + R 恢复程序运行，如果该断点下面代码还有断点则停在下一个断点上</li>
-<li>Command + F8 切换断点（若光标当前行有断点则取消断点，没有则加上断点）</li>
-<li>Command + Shift + F8 查看断点信息</li>
-<li>六、Navigation（导航）</li>
-<li>Command + O 查找类文件</li>
-<li>Command + Shift + O 查找所有类型文件、打开文件、打开目录，打开目录需要在输入的内容前面或后面加一个反斜杠/</li>
-<li>Command + Option + O 前往指定的变量 / 方法</li>
-<li>Control + 方向键左 / Control + 方向键右 左右切换打开的编辑tab页</li>
-<li>F12 返回到前一个工具窗口</li>
-<li>Esc 从工具窗口进入代码文件窗口</li>
-<li>Shift + Esc 隐藏当前或最后一个活动的窗口，且光标进入代码文件窗口</li>
-<li>Command + Shift + F4 关闭活动run/messages/find/… tab</li>
-<li>Command + L 在当前文件跳转到某一行的指定处</li>
-<li>Command + E 显示最近打开的文件记录列表</li>
-<li>Option + 方向键左 / Option + 方向键右 光标跳转到当前单词 / 中文句的左 / 右侧开头位置</li>
-<li>Command + Option + 方向键左 / Command + Option + 方向键右 退回 / 前进到上一个操作的地方</li>
-<li>Command + Shift + Delete 跳转到最后一个编辑的地方</li>
-<li>Option + F1 显示当前文件选择目标弹出层，弹出层中有很多目标可以进行选择(如在代码编辑窗口可以选择显示该文件的Finder)</li>
-<li>Command + B / Command + 鼠标点击 进入光标所在的方法/变量的接口或是定义处</li>
-<li>Command + Option + B 跳转到实现处，在某个调用的方法名上使用会跳到具体的实现处，可以跳过接口</li>
-<li>Option + Space, Command + Y 快速打开光标所在方法、类的定义</li>
-<li>Control + Shift + B 跳转到类型声明处</li>
-<li>Command + U 前往当前光标所在方法的父类的方法 / 接口定义</li>
-<li>Control + 方向键下 / Control + 方向键上 当前光标跳转到当前文件的前一个/后一个方法名位置</li>
-<li>Command + ] / Command + [ 移动光标到当前所在代码的花括号开始/结束位置</li>
-<li>Command + F12 弹出当前文件结构层，可以在弹出的层上直接输入进行筛选（可用于搜索类中的方法）</li>
-<li>Control + H 显示当前类的层次结构</li>
-<li>Command + Shift + H 显示方法层次结构</li>
-<li>Control + Option + H 显示调用层次结构</li>
-<li>F2 / Shift + F2 跳转到下一个/上一个突出错误或警告的位置</li>
-<li>F4 / Command + 方向键下 编辑/查看代码源</li>
-<li>Option + Home 显示到当前文件的导航条</li>
-<li>F3选中文件/文件夹/代码行，添加/取消书签</li>
-<li>Option + F3 选中文件/文件夹/代码行，使用助记符添加/取消书签</li>
-<li>Control + 0…Control + 9 定位到对应数值的书签位置</li>
-<li>Command + F3 显示所有书签</li>
-</ul>
-<h3 id="七、Refactoring（重构）"><a href="#七、Refactoring（重构）" class="headerlink" title="七、Refactoring（重构）"></a>七、Refactoring（重构）</h3><ul>
-<li>F5 复制文件到指定目录</li>
-<li>F6 移动文件到指定目录</li>
-<li>Shift + F6 重命名文件</li>
-<li>Command + Delete 在文件上为安全删除文件，弹出确认框</li>
-<li>Command + F6 更改签名</li>
-<li>Command + Option + N 一致性</li>
-<li>Command + Option + M 将选中的代码提取为方法</li>
-<li>Command + Option + V 提取变量</li>
-<li>Command + Option + F 提取字段</li>
-<li>Command + Option + C 提取常量</li>
-<li>Command + Option + P 提取参数</li>
-</ul>
-<h3 id="八、VCS-Local-History（版本控制-本地历史记录）"><a href="#八、VCS-Local-History（版本控制-本地历史记录）" class="headerlink" title="八、VCS/Local History（版本控制/本地历史记录）*"></a>八、VCS/Local History（版本控制/本地历史记录）*</h3><ul>
-<li>Command + K 提交代码到版本控制器</li>
-<li>Command + T 从版本控制器更新代码</li>
-<li>Option + Shift + C 查看最近的变更记录</li>
-<li>Control + C 快速弹出版本控制器操作面板</li>
-</ul>
-<h3 id="九、Live-Templates（动态代码模板）"><a href="#九、Live-Templates（动态代码模板）" class="headerlink" title="九、Live Templates（动态代码模板）"></a>九、Live Templates（动态代码模板）</h3><ul>
-<li>Command + Option + J 弹出模板选择窗口，将选定的代码使用动态模板包住</li>
-<li>Command + J 插入自定义动态代码模板</li>
-</ul>
-<h3 id="十、General（通用）"><a href="#十、General（通用）" class="headerlink" title="十、General（通用）"></a>十、General（通用）</h3><ul>
-<li>Command + 1…Command + 9 打开相应编号的工具窗口</li>
-<li>Command + S 保存所有</li>
-<li>Command + Option + Y 同步、刷新</li>
-<li>Control + Command + F 切换全屏模式</li>
-<li>Command + Shift + F12 切换最大化编辑器</li>
-<li>Option + Shift + F 添加到收藏夹</li>
-<li>Option + Shift + I 检查当前文件与当前的配置文件</li>
-<li>Control + ` 快速切换当前的scheme（切换主题、代码样式等）</li>
-<li>Command + , 打开IDEA系统设置</li>
-<li>Command + ; 打开项目结构对话框</li>
-<li>Shift + Command + A 查找动作（可设置相关选项）</li>
-<li>Control + Shift + Tab 编辑窗口标签和工具窗口之间切换（如果在切换的过程加按上delete，则是关闭对应选中的窗口）</li>
-</ul>
-<h3 id="十一、Other（一些官方文档上没有体现的快捷键）"><a href="#十一、Other（一些官方文档上没有体现的快捷键）" class="headerlink" title="十一、Other（一些官方文档上没有体现的快捷键）"></a>十一、Other（一些官方文档上没有体现的快捷键）</h3><ul>
-<li>Command + Shift +8 竖编辑模式</li>
-</ul>
 
       
     </div>
