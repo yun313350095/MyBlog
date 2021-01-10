@@ -192,6 +192,169 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-GoF23/Adapter适配器模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/11/16/GoF23/Adapter%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/">适配器模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/11/16/GoF23/Adapter%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2020-11-15T15:00:00.000Z" itemprop="datePublished">2020-11-16</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h5><p>适配器模式(Adapter Pattern) 就是作为两个不兼容接口之间的桥梁. 设计属于结构模式.<br>将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+<h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>优点:</p>
+<ol>
+<li>提高类的使用率</li>
+<li>增加了透明度</li>
+<li>将没有关系的类联合起来</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>过多使用适配器会让代码变得复杂</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MusicPlayer <span class="keyword">interface</span> &#123;</span><br><span class="line">	play(fileType <span class="keyword">string</span>, fileName <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> OutPlayer <span class="keyword">struct</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*OutPlayer)</span>  <span class="title">playMp3</span><span class="params">(fileName <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;play mp3: &quot;</span>, filename)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*OutPlayer)</span> <span class="title">playWma</span><span class="params">(fileName <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;play wma :&quot;</span>, fileName)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Adapter</span></span><br><span class="line"><span class="keyword">type</span> PlayerAdaptor <span class="keyword">struct</span>&#123;</span><br><span class="line">	outPlayer OutPlayer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(player *PlayerAdaptor)</span> <span class="title">play</span><span class="params">(fileType <span class="keyword">string</span>, fileName <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> fileType &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;mp3&quot;</span>:</span><br><span class="line">        player.outPlayer.playMp3(fileName)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;wma&quot;</span>:</span><br><span class="line">        player.outPlayer.playWma(fileName)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        fmt.Println(<span class="string">&quot;Can&#x27;t use it&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+    <article id="post-GoF23/Filter过滤模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/11/13/GoF23/Filter%E8%BF%87%E6%BB%A4%E6%A8%A1%E5%BC%8F/">过滤模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/11/13/GoF23/Filter%E8%BF%87%E6%BB%A4%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2020-11-12T15:00:00.000Z" itemprop="datePublished">2020-11-13</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="过滤模式"><a href="#过滤模式" class="headerlink" title="过滤模式"></a>过滤模式</h5><p>过滤器模式（Filter Pattern）或标准模式（Criteria Pattern）是一种设计模式，<br>这种模式允许开发人员使用不同的标准来过滤一组对象，通过逻辑运算以解耦的方式把它们连接起来。<br>这种类型的设计模式属于结构型模式，它结合多个标准来获得单一标准。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+    <article id="post-GoF23/Decorator装饰器模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/11/11/GoF23/Decorator%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/">装饰器模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/11/11/GoF23/Decorator%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2020-11-10T15:00:00.000Z" itemprop="datePublished">2020-11-11</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="装饰器模式"><a href="#装饰器模式" class="headerlink" title="装饰器模式"></a>装饰器模式</h5><p>装饰器模式(Decorator pattern) 允许像一个现有对象添加新的功能, 同时又不会改变结构.</p>
+<h5 id="有点-和-缺点"><a href="#有点-和-缺点" class="headerlink" title="有点 和 缺点"></a>有点 和 缺点</h5><p>优点:</p>
+<ol>
+<li>装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。</li>
+<li>装饰器模式完全遵守开闭原则.</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>装饰模式会增加许多子类，过度使用会增加程序得复杂性。</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Shape <span class="keyword">interface</span> &#123;</span><br><span class="line">	Draw()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Circle <span class="keyword">struct</span>&#123;</span><br><span class="line">	radius <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c Circle)</span> <span class="title">Draw</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Draw circle:&quot;</span>, c.radius)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rectangle <span class="keyword">struct</span>&#123;</span><br><span class="line">	length <span class="keyword">float64</span></span><br><span class="line">	width  <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r Rectangle)</span> <span class="title">Draw</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Draw a rectangle&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ShapeDecorator <span class="keyword">interface</span> &#123;</span><br><span class="line">    Shape</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> RedShapeDecorator <span class="keyword">struct</span> &#123;</span><br><span class="line">    S Shape</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d RedShapeDecorator)</span> <span class="title">Draw</span><span class="params">()</span></span> &#123;</span><br><span class="line">    d.S.Draw()</span><br><span class="line">    d.setRedBorder()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d RedShapeDecorator)</span> <span class="title">setRedBorder</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Decorator:set red border&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-GoF23/Bridge架桥"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -221,7 +384,7 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h5><p>桥接模式(Bridge Pattern): 将抽象部分和现实分离, 使他们可以独立变化. 它是一种对象结构模式,<br>又称为柄体(Handle and Body)模式或接口(Interface)模式。</p>
+        <h5 id="桥接模式"><a href="#桥接模式" class="headerlink" title="桥接模式"></a>桥接模式</h5><p>桥接模式(Bridge Pattern): 将抽象部分和现实分离, 使他们可以独立变化. 它是一种对象结构模式,<br>又称为柄体(Handle and Body)模式或接口(Interface)模式。<br>主要解决：主要解决在软件系统中，有时候面临着”一个复杂对象”的创建工作，其通常由各个部分的子对象用一定的算法构成；<br>由于需求的变化，这个复杂对象的各个部分经常面临着剧烈的变化，但是将它们组合在一起的算法却相对稳定。</p>
 <h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>优点:</p>
 <ol>
 <li>分离抽象接口及其实现部分。</li>
@@ -232,6 +395,56 @@
 <li>桥接模式的引入会增加系统的理解与设计难度，由于聚合关联关系建立在抽象层，要求开发者针对抽象进</li>
 </ol>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> AbstractMessage <span class="keyword">interface</span> &#123;</span><br><span class="line">	SendMessage(text, to <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MessageImplementer <span class="keyword">interface</span> &#123;</span><br><span class="line">	Send(text, to <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MessageSMS <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ViaSMS</span><span class="params">()</span> <span class="title">MessageImplementer</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;MessageSMS&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *MessageSMS)</span> <span class="title">Send</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;send %s to %s via Email&quot;</span>, text, to)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MessageEmail <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ViaEmail</span><span class="params">()</span> <span class="title">MessageImplementer</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;MessageEmail&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*MessageEmail)</span> <span class="title">Send</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;send %s to %s via Email&quot;</span>, text, to)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> CommonMessage <span class="keyword">struct</span> &#123;</span><br><span class="line">	method MessageImplementer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewCommonMessage</span><span class="params">(method MessageImplementer)</span> *<span class="title">CommonMessage</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;CommonMessage&#123;</span><br><span class="line">		method: method,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *CommonMessage)</span> <span class="title">SendMessage</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	m.method.Send(text, to)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UrgencyMessage <span class="keyword">struct</span> &#123;</span><br><span class="line">	method MessageImplementer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewUrgencyMessage</span><span class="params">(method MessageImplementer)</span> *<span class="title">UrgencyMessage</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;UrgencyMessage&#123;</span><br><span class="line">		method: method,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *UrgencyMessage)</span> <span class="title">SendMessage</span><span class="params">(text, to <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	m.method.Send(fmt.Sprintf(<span class="string">&quot;[Urgency] %s&quot;</span>, text), to)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
+    <article id="post-GoF23/Prototype原型模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/11/07/GoF23/Prototype%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">原型模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/11/07/GoF23/Prototype%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2020-11-06T15:00:00.000Z" itemprop="datePublished">2020-11-07</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="原型模式-Prototype-Pattern"><a href="#原型模式-Prototype-Pattern" class="headerlink" title="原型模式(Prototype Pattern)"></a>原型模式(Prototype Pattern)</h5><p>原型模式（Prototype Pattern）是用于创建重复的对象，同时又能保证性能。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。<br>原型模式通过克隆一个已经存在的对象实例来返回新的实例，而不是通过new去创建对象，多用于创建复杂的或者耗时的实例，因为这种情况下，复制一个已经存在的实例使程序运行更高效；</p>
+<h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>优点：<br>1、性能提高。<br>2、逃避构造函数的约束。</p>
+<p>缺点：<br>1、配备克隆方法需要对类的功能进行通盘考虑，这对于全新的类不是很难，但对于已有的类不一定很容易，<br>   特别当一个类引用不支持串行化的间接对象，或者引用含有循环结构的时候。<br>2、必须实现 Cloneable 接口。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Example <span class="keyword">struct</span> &#123;</span><br><span class="line">	Content <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(e *Example)</span> <span class="title">Clone</span><span class="params">()</span> *<span class="title">Example</span></span> &#123;</span><br><span class="line">	res := *e</span><br><span class="line">	<span class="keyword">return</span> &amp;res</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
@@ -403,6 +616,64 @@
 
 
   
+    <article id="post-GoF23/Facade外观模式"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2020/11/01/GoF23/Facade%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/">外观模式Golang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/11/01/GoF23/Facade%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2020-10-31T15:00:00.000Z" itemprop="datePublished">2020-11-01</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h5><p>外观模式(Facade Pattern): 隐藏系统的复杂, 提供一个统一的接口, 用来访问子系统的一群接口.<br>这种类型的设计模式属于结构型模式，它向现有的系统添加一个接口，来隐藏系统的复杂性。</p>
+<h6 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h6><p>优点:</p>
+<ol>
+<li>减少系统相互依赖。 </li>
+<li>提高灵活性。 </li>
+<li>提高了安全性。</li>
+</ol>
+<p>缺点:</p>
+<ol>
+<li>不能很好地限制客户使用子系统类，很容易带来未知风险。</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Shape <span class="keyword">interface</span> &#123;</span><br><span class="line">    Draw()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Circle <span class="keyword">struct</span> &#123;</span><br><span class="line">    radius <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c Circle)</span> <span class="title">Draw</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Draw a circle:&quot;</span>, c.radius)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rectangle <span class="keyword">struct</span> &#123;</span><br><span class="line">    length <span class="keyword">float64</span></span><br><span class="line">    width  <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r Rectangle)</span> <span class="title">Draw</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;Draw a rectangle length:%f,width:%f&quot;</span>, r.length, r.width)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Square <span class="keyword">struct</span> &#123;</span><br><span class="line">    width <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s Square)</span> <span class="title">Draw</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;Draw a square:%f&quot;</span>, s.width)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ShapeMaker <span class="keyword">struct</span> &#123;</span><br><span class="line">    circle    Circle</span><br><span class="line">    rectangle Rectangle</span><br><span class="line">    square    Square</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(maker ShapeMaker)</span> <span class="title">DrawCircle</span><span class="params">()</span></span> &#123;</span><br><span class="line">    maker.circle.Draw()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(maker ShapeMaker)</span> <span class="title">DrawRectangle</span><span class="params">()</span></span> &#123;</span><br><span class="line">    maker.rectangle.Draw()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(maker ShapeMaker)</span> <span class="title">DrawSquare</span><span class="params">()</span></span> &#123;</span><br><span class="line">    maker.square.Draw()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+
+  
     <article id="post-GoF23/AbstractFactory抽象工厂设计"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -452,389 +723,11 @@
 
 
   
-    <article id="post-GoF23/BuilderPattern创建者模式"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2020/10/30/GoF23/BuilderPattern%E5%88%9B%E5%BB%BA%E8%80%85%E6%A8%A1%E5%BC%8F/">造者模式Golang</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2020/10/30/GoF23/BuilderPattern%E5%88%9B%E5%BB%BA%E8%80%85%E6%A8%A1%E5%BC%8F/" class="article-date">
-	  <time datetime="2020-10-29T15:00:00.000Z" itemprop="datePublished">2020-10-30</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="造者模式-Builder-Pattern"><a href="#造者模式-Builder-Pattern" class="headerlink" title="造者模式(Builder Pattern)"></a>造者模式(Builder Pattern)</h5><p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。<br>抽象建造者类中定义了产品的创建方法和返回方法.<br>建造者模式的结构中还引入了一个指挥者类Director，该类的作用主要有两个：一方面它隔离了客户与生产过程；<br>另一方面它负责控制产品的生成过程。指挥者针对抽象建造者编程，客户端只需要知道具体建造者的类型，<br>即可通过指挥者类调用建造者的相关方法，返回一个完整的产品对象.</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Wheel <span class="keyword">int</span></span><br><span class="line"><span class="keyword">type</span> Vehicle <span class="keyword">struct</span> &#123;</span><br><span class="line">	Wheels	  Wheel</span><br><span class="line">	Seats 	  <span class="keyword">int</span></span><br><span class="line">	Structure <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//builder interface</span></span><br><span class="line"><span class="keyword">type</span> Builder <span class="keyword">interface</span> &#123;</span><br><span class="line">	SetWheels()		Builder</span><br><span class="line">	SetSeats()		Builder</span><br><span class="line">	SetStructure()  Builder</span><br><span class="line">	GetVehicle()	Vehicle</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Director</span></span><br><span class="line"><span class="keyword">type</span> Director <span class="keyword">struct</span> &#123;</span><br><span class="line">	builder Builder</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(director *Director)</span> <span class="title">Construct</span><span class="params">()</span></span> &#123;</span><br><span class="line">	director.builder.SetWheels().SetSeats().SetStructure()  <span class="comment">//链式调用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(director *Director)</span> <span class="title">SetBuilder</span><span class="params">(builder Builder)</span></span> &#123;</span><br><span class="line">	director.builder = builder</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//car struct</span></span><br><span class="line"><span class="keyword">type</span> Car <span class="keyword">struct</span> &#123;</span><br><span class="line">	vehicle Vehicle</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car *Car)</span> <span class="title">SetWheels</span><span class="params">()</span> <span class="title">Builder</span></span> &#123;</span><br><span class="line">	car.vehicle.Wheels = <span class="number">4</span></span><br><span class="line">	<span class="keyword">return</span> car</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car *Car)</span> <span class="title">SetSeats</span><span class="params">()</span> <span class="title">Builder</span></span> &#123;</span><br><span class="line">	car.vehicle.Seats = <span class="number">4</span></span><br><span class="line">	<span class="keyword">return</span> car</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car *Car)</span> <span class="title">SetStructure</span><span class="params">()</span> <span class="title">Builder</span></span> &#123;</span><br><span class="line">	car.vehicle.Structure = <span class="string">&quot;Car&quot;</span></span><br><span class="line">	<span class="keyword">return</span> car</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(car *Car)</span> <span class="title">GetVehicle</span><span class="params">()</span> <span class="title">Vehicle</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> car.vehicle</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-GoF23/SimpleFactory简单工厂设计"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2020/10/20/GoF23/SimpleFactory%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/">简单工厂设计模式Golang</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2020/10/20/GoF23/SimpleFactory%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1/" class="article-date">
-	  <time datetime="2020-10-19T15:00:00.000Z" itemprop="datePublished">2020-10-20</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="简单工厂设计模式-Simple-Factory-Pattern"><a href="#简单工厂设计模式-Simple-Factory-Pattern" class="headerlink" title="简单工厂设计模式(Simple Factory Pattern)"></a>简单工厂设计模式(Simple Factory Pattern)</h5><p>简单工厂设计模式(Simple Factory Patten): 根据参数的不同返回不同类的实例. 简单工厂模式专门定义一个类来负责创建其他的实例,被创建的实例<br>通常含有相同的父类.</p>
-<h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>– 优点</p>
-<ol>
-<li>只需要传递参数就可以创建产品的类.</li>
-<li>创建的对象跟业务代码进行分离.</li>
-<li>可以通过引入配置文件, 可以增加系统的灵活性.</li>
-</ol>
-<p>– 缺点</p>
-<ol>
-<li>工厂类中含有大量的逻辑代码. 如果出现问题会影响系统</li>
-<li>会增加类的个数</li>
-<li>系统扩展困难, 需要修改工厂逻辑代码</li>
-</ol>
-<h5 id="简单工厂-角色"><a href="#简单工厂-角色" class="headerlink" title="简单工厂 角色"></a>简单工厂 角色</h5><ol>
-<li>Factory(工厂类)用来生产产品, 是整个简单工厂模式的核心. 通过工厂类传入想要生产产品的参数, 然后生产产品.</li>
-<li>Product(抽象产品类)用来定义具体产品所应实现的接口</li>
-<li>ConcreteProduct(具体产品类), 实现抽象产品的接口, 不同的具体产品, 对于同一种方法可能具有不同的实现方式，经由工厂类进行实例化。</li>
-</ol>
-<h5 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h5><p><img src="/images/2020-10-20/SimpleFactory.png"></p>
-<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Car <span class="keyword">interface</span> &#123;</span><br><span class="line">	Drive()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> BMW <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *BMW)</span> <span class="title">Drive</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Drive BMW&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Audi <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *Audi)</span> <span class="title">Drive</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Drive Auti&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Factory</span><span class="params">(name <span class="keyword">string</span>)</span> <span class="title">Car</span></span> &#123;</span><br><span class="line">	<span class="keyword">switch</span> strings.ToLower(name) &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">&quot;audi&quot;</span>:</span><br><span class="line">		<span class="keyword">return</span> &amp;Audi&#123;&#125;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">&quot;bmw&quot;</span>:</span><br><span class="line">		<span class="keyword">return</span> &amp;BMW&#123;&#125;</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Printf(<span class="string">&quot;Not Support %s\n&quot;</span>, name)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="信息流广告算法等-Ad/信息流广告-区别"  class="article article-type-信息流广告算法等" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2020/10/15/Ad/%E4%BF%A1%E6%81%AF%E6%B5%81%E5%B9%BF%E5%91%8A-%E5%8C%BA%E5%88%AB/">信息流广告算法等</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2020/10/15/Ad/%E4%BF%A1%E6%81%AF%E6%B5%81%E5%B9%BF%E5%91%8A-%E5%8C%BA%E5%88%AB/" class="article-date">
-	  <time datetime="2020-10-15T07:10:00.000Z" itemprop="datePublished">2020-10-15</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="信息流广告-区别"><a href="#信息流广告-区别" class="headerlink" title="信息流广告-区别"></a>信息流广告-区别</h5><blockquote>
-<p><code>属性</code>  - <code>受众</code>  - <code>资源</code></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>推广类型</th>
-<th>受众原理</th>
-<th>媒体资源</th>
-<th>流量属性</th>
-<th>终端</th>
-<th>人群定位</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>信息流</td>
-<td>广告-人</td>
-<td>自家媒体, 资源多样化, 质量好</td>
-<td>原生性强, 用户体验好</td>
-<td>移动端较多, PC端较少</td>
-<td>标签, 行为等(大数据)</td>
-</tr>
-<tr>
-<td>SEM</td>
-<td>人-广告</td>
-<td>资源单一, 精准度高</td>
-<td>用户需求强烈, 接受度较高</td>
-<td>从PC端逐渐转移到移动端</td>
-<td>关键词, 搜索行为</td>
-</tr>
-<tr>
-<td>DSP</td>
-<td>广告-人</td>
-<td>整合别人家媒体,资源多样,质量较差</td>
-<td>原生性强, 用户体验较好, 剩余流量</td>
-<td>移动端较多</td>
-<td>标签, 行为(大数据)</td>
-</tr>
-<tr>
-<td>联盟广告</td>
-<td>广告-人</td>
-<td>资源多样,质量较差</td>
-<td>强行植入, 用户体验差</td>
-<td>PC端较多</td>
-<td>关键词搜索,搜索行为</td>
-</tr>
-</tbody></table>
-<h5 id="信息流广告-样式"><a href="#信息流广告-样式" class="headerlink" title="信息流广告-样式"></a>信息流广告-样式</h5><blockquote>
-<p>大图<br>单图<br>组图</p>
-</blockquote>
-<h5 id="行业占比分析"><a href="#行业占比分析" class="headerlink" title="行业占比分析"></a>行业占比分析</h5><p>电扇 40%<br>游戏 25%<br>非企 25%<br>实体 10% </p>
-<h5 id="计费模式"><a href="#计费模式" class="headerlink" title="计费模式"></a>计费模式</h5><p>CPC: 点击                   CPT: 时长<br>CPM: 展现                   CPD: 按天<br>CPA: 行为                   CPR: 反馈<br>CPS: 销售                   CPL: 潜在<br>OCPC: 目标转化价格</p>
-<h5 id="信息流广告-竞价机制"><a href="#信息流广告-竞价机制" class="headerlink" title="信息流广告-竞价机制"></a>信息流广告-竞价机制</h5><p><strong>**eCPM = CTR x 出价 x 1000 **</strong></p>
-<p>CTR = 点击量 / 曝光量</p>
-<p>eCPM = 广告收入 x 1000 / 曝光量<br>     = 出价 x 点击量 x 1000 / 曝光量<br>     = 出价 x 1000 x 点击量 / 曝光量<br>     = 出价 x 1000 x CTR</p>
-<p><em>CPR</em>: 点击率<br><em>eCPM</em>: 预估曝光几率</p>
-<blockquote>
-<p>举例</p>
-</blockquote>
-<p>创意A: 出价1.5元, CTR 3.5%<br>创意B: 出价2.1元, CTR 1.2%</p>
-<h5 id="信息流广告-暗拍"><a href="#信息流广告-暗拍" class="headerlink" title="信息流广告 - 暗拍"></a>信息流广告 - 暗拍</h5><blockquote>
-<p>cpc成交价 = 下一位的出价 x 下一位的质量度 / 你得质量度 + 0.01</p>
-</blockquote>
-<p>广告A的CTR为5%, 而排在其后的广告B的CTR为1%, 那么最终:</p>
-<p>A的成交价 = B的出价 x (B的质量/A的质量) + 0.01<br>        = B的价格 x (1% / 5%) + 0.01<br>        = B的出价*0.2 + 0.01</p>
-<blockquote>
-<p>注意误区: 信息流广告, 每个位置都是单独的, 随机展现, 没有排名而言, 脱离SEM广告排名误区.</p>
-</blockquote>
-<h5 id="CPD-cost-per-download"><a href="#CPD-cost-per-download" class="headerlink" title="CPD (cost per download):"></a>CPD (cost per download):</h5><p>适用场景: 一般为应用产品, 如游戏, 软件等. 每次下载的费用请求.</p>
-<h5 id="SERP-搜索引擎结果页面"><a href="#SERP-搜索引擎结果页面" class="headerlink" title="SERP (搜索引擎结果页面)"></a>SERP (搜索引擎结果页面)</h5>
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="广告用语-Ad/主要广告用语"  class="article article-type-广告用语" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2020/10/15/Ad/%E4%B8%BB%E8%A6%81%E5%B9%BF%E5%91%8A%E7%94%A8%E8%AF%AD/">广告用语</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2020/10/15/Ad/%E4%B8%BB%E8%A6%81%E5%B9%BF%E5%91%8A%E7%94%A8%E8%AF%AD/" class="article-date">
-	  <time datetime="2020-10-14T16:20:00.000Z" itemprop="datePublished">2020-10-15</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/%E5%B9%BF%E5%91%8A/">广告</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="主要广告用语"><a href="#主要广告用语" class="headerlink" title="主要广告用语"></a>主要广告用语</h5><blockquote>
-<p>广告主 advertiser 显然是指想为自己的品牌或者产品做广告的人</p>
-</blockquote>
-<blockquote>
-<p>媒体 publisher 则是提供广告位置的载体，例如电视台、网站、杂志、楼宇…</p>
-</blockquote>
-<blockquote>
-<p>广告商 agency 本质上其实就是中介，帮广告主找媒体广告位，帮媒体找广告主。</p>
-</blockquote>
-<blockquote>
-<p>受众 audience “消费”广告的人</p>
-</blockquote>
-<blockquote>
-<p>广告位置 inventory 广告的位置</p>
-</blockquote>
-<p><em>Ad Exchange 广告交换平台</em><br>Ad Exchange 广告交换平台不仅仅联合publishers, 它同样把Ad Network联合起来, 这些拥有广告位的,<br>被统一用 <code>供应方 (Supply side) </code>一词代替. 广告主的广告.</p>
-<p>Ad Exchange，则是一个真正意义上按照供需关系来运转的“市场经济”。</p>
-<p>Ad　Exchange为每一个商品(广告位置)提供了价高者得的机制.  Ad Exchange 则更像是Nashdaq, 广告位置就是股票. 股民就是广告主. 哪些广告位置更有价值, 就会被广告主追逐的更多. 价格就会更高.</p>
-<h5 id="RTB-Real-Time-bidding-实时竞价-模式"><a href="#RTB-Real-Time-bidding-实时竞价-模式" class="headerlink" title="RTB (Real Time bidding) 实时竞价 模式"></a>RTB (Real Time bidding) 实时竞价 模式</h5><p>实时竞价一般是按照 <code>CPM</code> 或者 <code>CPC</code> 出价的. 简单说是按照广告被展现的在受众面前的次数出价. 或者按照广告被点击的次数出价. </p>
-<h5 id="DSP-Demand-Side-Platform）需求方平台"><a href="#DSP-Demand-Side-Platform）需求方平台" class="headerlink" title="DSP (Demand Side Platform）需求方平台"></a>DSP (Demand Side Platform）需求方平台</h5><p>它看起来就是帮助广告主玩转Ad Exchange的中介(agency). DSP把Ad Exchange中的广告位的展示做成了一个巨大的改变. 在DSP中广告位这个概念被淡化了, 目标受众(Targe Audience) 的概念则被提出来.</p>
-<p>每一个广告背后, 都是一部分受众(audience), 广告主购买广告的位的目的, 实际上就是看中了广告位背后的用户. </p>
-<p>DSP就成了一边连接Ad Exchange, 另外一遍服务于广告主的中介. DSP通过请打的受众数据和数学能力, 帮助广告主实时决策, 合理花钱. 所以需要受众数据, 准确的, 海量的. 其二, 强大的自动化算法, 保证最合理的竞价.</p>
-<h5 id="DMP-Data-Management-Platform-数据管理平台"><a href="#DMP-Data-Management-Platform-数据管理平台" class="headerlink" title="DMP (Data Management Platform) 数据管理平台"></a>DMP (Data Management Platform) 数据管理平台</h5><p>DSP自己有自己的受众数据, 数据管理平台, 简单讲, 他们手中握有受众数据, 并且能够让DSP连接他们这里, 利用他的数据<br>DMP为了获取受众数据, 它必须做两件事情, 其一, 它需要为所有受众每一个做一个标记, 这个标记在目前的技术下, 通过cookie实现. 其二, 它还需要能够实现跨域追中</p>
-<h5 id="SSP-Supply-Side-Platform-供应方平台"><a href="#SSP-Supply-Side-Platform-供应方平台" class="headerlink" title="SSP (Supply Side Platform) 供应方平台"></a>SSP (Supply Side Platform) 供应方平台</h5><p>供应方(publishers 和 Ad Networks) 有一个呗成为SSP, 他们是大点各个Ad Exchange 的关系. 提供使用体验更一直集成的广告库存管理环境. 为各媒体提供一致、集成的广告位库存管理环境.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
-    <article id="post-GoF23/Strategy策略方法"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2020/10/03/GoF23/Strategy%E7%AD%96%E7%95%A5%E6%96%B9%E6%B3%95/">策略设计模式Golang</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2020/10/03/GoF23/Strategy%E7%AD%96%E7%95%A5%E6%96%B9%E6%B3%95/" class="article-date">
-	  <time datetime="2020-10-02T15:00:00.000Z" itemprop="datePublished">2020-10-03</time>
-	</a>
-
-      
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-
-      
-      
-
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Strategy-策略"><a href="#Strategy-策略" class="headerlink" title="Strategy 策略"></a>Strategy 策略</h4><p>该模式定义一些列算法, 并将算法封装到一起.</p>
-<p>优点:</p>
-<ol>
-<li>多重条件语句不易维护, 而使用策略模式可以避免使用多重条件语句.</li>
-<li>策略模式提供一些列的重用算法组, 恰当使用继承可以吧算法组公用代码转移到父类里面. 从而避免代码的重复.</li>
-<li>策略模式可以提供相同行为的不同实现, 客户可以根据不同时间或空间要求选择的不同.</li>
-<li>策略模式可以提供开闭原则的完美支持, 可以不修改源码的情况下,灵魂增加算法.</li>
-<li>策略模式把算法的使用放到环境类中，而算法的实现移到具体策略类中，实现了二者的分离。</li>
-</ol>
-<p>缺点:</p>
-<ol>
-<li>客户端必须理解所有策略算法的区别，以便适时选择恰当的算法类。</li>
-<li>策略模式造成很多的策略类。</li>
-</ol>
-<p>应用场景:</p>
-<ol>
-<li>旅行出游的时候,选择骑自行车,坐汽车,</li>
-<li>诸葛钢铁有很多锦囊妙计,每一个荷包都是一个策略.</li>
-<li>选择不同种类的支付.</li>
-</ol>
-<p>使用场景:</p>
-<ol>
-<li>如在一个系统有很慢类,它之间的区别只是区别于他们的行为,那么使用策略模式可以动态让一个对象在许多行为中选择一种行为.</li>
-<li>一个系统需要动态的几种算法中选择一种.</li>
-</ol>
-<p><img src="/images/2020-10-03/Strategy_%E5%88%86%E6%9E%90.png"><br>关于支付的分析图</p>
-<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Payment <span class="keyword">interface</span> &#123;</span><br><span class="line">	Pay(money <span class="keyword">int64</span>) error</span><br><span class="line">	Refund(money <span class="keyword">int64</span>) error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Alipay <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *Alipay)</span> <span class="title">Pay</span><span class="params">(money <span class="keyword">int64</span>)</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;Pay by Alipay %d&quot;</span>, money)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(a *Alipay)</span> <span class="title">Refund</span><span class="params">(money <span class="keyword">int64</span>)</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;Refund by Alipay %d&quot;</span>, money)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> WechatPay <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *WechatPay)</span> <span class="title">Pay</span><span class="params">(money <span class="keyword">int64</span>)</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;Pay by WechatPay %d&quot;</span>, money)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *WechatPay)</span> <span class="title">Refund</span><span class="params">(money <span class="keyword">int64</span>)</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;Refund by WechatPay %d&quot;</span>, money)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> BankPay <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *BankPay)</span> <span class="title">Pay</span><span class="params">(money <span class="keyword">int64</span>)</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;Pay by BankPay %d&quot;</span>, money)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(w *BankPay)</span> <span class="title">Refund</span><span class="params">(money <span class="keyword">int64</span>)</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;Refund by BankPay %d&quot;</span>, money)</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> PayType <span class="keyword">struct</span> &#123;</span><br><span class="line">	use Payment</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *PayType)</span> <span class="title">SetPayment</span><span class="params">(payment Payment)</span></span> &#123;</span><br><span class="line">	u.use = payment</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *PayType)</span> <span class="title">Pay</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> u.use.Pay(<span class="number">10</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *PayType)</span> <span class="title">Refund</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> u.use.Refund(<span class="number">10</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestStrategy</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	a := assert.New(t)</span><br><span class="line"> 	p := PayType&#123;&#125;</span><br><span class="line"></span><br><span class="line">	p.SetPayment(&amp;Alipay&#123;&#125;)</span><br><span class="line">	a.Equal(<span class="string">&quot;Pay by Alipay 10&quot;</span>,  p.Pay())</span><br><span class="line">	a.Equal(<span class="string">&quot;Refund by Alipay 10&quot;</span>,  p.Pay())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      
-      
-      
-      
-
-    </footer>
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -849,7 +742,7 @@
   <div class="container">
       	<div class="row">
 	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
-	      <p id="copyRightEn">Copyright &copy; 2018 - 2020 Noonde All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2018 - 2021 Noonde All Rights Reserved.</p>
 	      
 	      
     		<p class="busuanzi_uv">
@@ -1000,7 +893,7 @@
             Noonde
           </div>
           <div class="panel-body">
-            Copyright © 2020 Yunling Zhang All Rights Reserved.
+            Copyright © 2021 Yunling Zhang All Rights Reserved.
           </div>
         </div>
       </div>
