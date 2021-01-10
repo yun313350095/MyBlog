@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>适配器模式golang | Noonde</title>
+  <title>命令模式golang | Noonde</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Noonde" />
@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="适配器模式适配器模式(Adapter Pattern) 就是作为两个不兼容接口之间的桥梁. 设计属于结构模式.将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。 优点 和 缺点优点:  提高类的使用率 增加了透明度 将没有关系的类联合起来  缺点:  过多使用适配器会让代码变得复杂  12345678910111213141516171">
+  <meta name="description" content="命令模式命令模式（Command Pattern）是一种数据驱动的设计模式，它属于行为型模式.请求以命令的形式包裹在对象中，并传给调用对象。调用对象寻找可以处理该命令的合适的对象，并把该命令传给相应的对象，该对象执行命令. 优点 和 缺点优点:  降低系统的耦合度。命令模式能将调用操作的对象与实现该操作的对象解耦.  缺点:  使用命令模式可能会导致某些系统有过多的具体命令类  123456789">
 <meta property="og:type" content="article">
-<meta property="og:title" content="适配器模式Golang">
-<meta property="og:url" content="https://noonde.com/2020/11/16/GoF23/Adapter%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="命令模式Golang">
+<meta property="og:url" content="https://noonde.com/2020/12/02/GoF23/Command%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Noonde">
-<meta property="og:description" content="适配器模式适配器模式(Adapter Pattern) 就是作为两个不兼容接口之间的桥梁. 设计属于结构模式.将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。 优点 和 缺点优点:  提高类的使用率 增加了透明度 将没有关系的类联合起来  缺点:  过多使用适配器会让代码变得复杂  12345678910111213141516171">
+<meta property="og:description" content="命令模式命令模式（Command Pattern）是一种数据驱动的设计模式，它属于行为型模式.请求以命令的形式包裹在对象中，并传给调用对象。调用对象寻找可以处理该命令的合适的对象，并把该命令传给相应的对象，该对象执行命令. 优点 和 缺点优点:  降低系统的耦合度。命令模式能将调用操作的对象与实现该操作的对象解耦.  缺点:  使用命令模式可能会导致某些系统有过多的具体命令类  123456789">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-11-15T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-10T03:02:31.830Z">
+<meta property="article:published_time" content="2020-12-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-10T11:54:26.571Z">
 <meta property="article:author" content="Yunling Zhang">
 <meta property="article:tag" content="GoF23">
-<meta property="article:tag" content="结构型模式">
+<meta property="article:tag" content="行为模式">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Noonde" type="application/atom+xml">
@@ -169,7 +169,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-GoF23/Adapter适配器模式" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-GoF23/Command命令模式" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -177,7 +177,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      适配器模式Golang
+      命令模式Golang
     </h1>
   
 
@@ -185,8 +185,8 @@
     
     <div class="article-meta">
       
-	<a href="/2020/11/16/GoF23/Adapter%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="article-date">
-	  <time datetime="2020-11-15T15:00:00.000Z" itemprop="datePublished">2020-11-16</time>
+	<a href="/2020/12/02/GoF23/Command%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" class="article-date">
+	  <time datetime="2020-12-01T15:00:00.000Z" itemprop="datePublished">2020-12-02</time>
 	</a>
 
       
@@ -204,18 +204,16 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h5><p>适配器模式(Adapter Pattern) 就是作为两个不兼容接口之间的桥梁. 设计属于结构模式.<br>将一个类的接口转换成客户希望的另外一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+        <h5 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h5><p>命令模式（Command Pattern）是一种数据驱动的设计模式，它属于行为型模式.<br>请求以命令的形式包裹在对象中，并传给调用对象。调用对象寻找可以处理该命令的合适的对象，并把该命令传给相应的对象，该对象执行命令.</p>
 <h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>优点:</p>
 <ol>
-<li>提高类的使用率</li>
-<li>增加了透明度</li>
-<li>将没有关系的类联合起来</li>
+<li>降低系统的耦合度。命令模式能将调用操作的对象与实现该操作的对象解耦.</li>
 </ol>
 <p>缺点:</p>
 <ol>
-<li>过多使用适配器会让代码变得复杂</li>
+<li>使用命令模式可能会导致某些系统有过多的具体命令类</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MusicPlayer <span class="keyword">interface</span> &#123;</span><br><span class="line">	play(fileType <span class="keyword">string</span>, fileName <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> OutPlayer <span class="keyword">struct</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*OutPlayer)</span>  <span class="title">playMp3</span><span class="params">(fileName <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;play mp3: &quot;</span>, filename)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*OutPlayer)</span> <span class="title">playWma</span><span class="params">(fileName <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;play wma :&quot;</span>, fileName)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Adapter</span></span><br><span class="line"><span class="keyword">type</span> PlayerAdaptor <span class="keyword">struct</span>&#123;</span><br><span class="line">	outPlayer OutPlayer</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(player *PlayerAdaptor)</span> <span class="title">play</span><span class="params">(fileType <span class="keyword">string</span>, fileName <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> fileType &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;mp3&quot;</span>:</span><br><span class="line">        player.outPlayer.playMp3(fileName)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;wma&quot;</span>:</span><br><span class="line">        player.outPlayer.playWma(fileName)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        fmt.Println(<span class="string">&quot;Can&#x27;t use it&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Stock <span class="keyword">struct</span> &#123;</span><br><span class="line">	name     <span class="keyword">string</span></span><br><span class="line">	quantity <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(stock *Stock)</span> <span class="title">Set</span><span class="params">(name <span class="keyword">string</span>, quantity <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	stock.name = name</span><br><span class="line">	stock.quantity = quantity</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(stock *Stock)</span> <span class="title">Buy</span><span class="params">(s Stock)</span></span> &#123;</span><br><span class="line">	stock.name = s.name</span><br><span class="line">	stock.quantity = s.quantity</span><br><span class="line">	fmt.Printf(<span class="string">&quot;Buy stock %s, quantity:%d \n&quot;</span>, s.name, s.quantity)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(stock Stock)</span> <span class="title">Sell</span><span class="params">(s Stock)</span></span> &#123;</span><br><span class="line">	stock.name = s.name</span><br><span class="line">	stock.quantity = s.quantity</span><br><span class="line">	fmt.Printf(<span class="string">&quot;Sell stock %s, quantity:%d \n&quot;</span>, s.name, s.quantity)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Order <span class="keyword">interface</span> &#123;</span><br><span class="line">    Execute()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> BuyStock <span class="keyword">struct</span> &#123;</span><br><span class="line">    stock Stock</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(buy BuyStock)</span> <span class="title">Execute</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;execute in buy command&quot;</span>)</span><br><span class="line">    buy.stock.Buy(buy.stock)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> SellStock <span class="keyword">struct</span> &#123;</span><br><span class="line">    stock Stock</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(sell SellStock)</span> <span class="title">Execute</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;execute in sell command&quot;</span>)</span><br><span class="line">    sell.stock.Sell(sell.stock)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Broker <span class="keyword">struct</span> &#123;</span><br><span class="line">    order Order</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(broker *Broker)</span> <span class="title">SetOrder</span><span class="params">(order Order)</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;set order:%v\n&quot;</span>, order)</span><br><span class="line">    broker.order = order</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(broker Broker)</span> <span class="title">Call</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;call in broker&quot;</span>)</span><br><span class="line">    broker.order.Execute()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
@@ -239,7 +237,7 @@ var a = new Donate({
       
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GoF23/" rel="tag">GoF23</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GoF23/" rel="tag">GoF23</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%BC%8F/" rel="tag">行为模式</a></li></ul>
 
       
 
@@ -249,19 +247,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/2020/11/18/GoF23/Composite%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/12/03/GoF23/State%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          组合模式Golang
+          状态模式Golang
         
       </div>
     </a>
   
   
-    <a href="/2020/11/13/GoF23/Filter%E8%BF%87%E6%BB%A4%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/12/01/GoF23/Visitor%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">过滤模式Golang</div>
+      <div class="article-nav-title">访问模式Golang</div>
     </a>
   
 </nav>
@@ -275,7 +273,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">适配器模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-%E5%92%8C-%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点 和 缺点</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-%E5%92%8C-%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点 和 缺点</span></a></li></ol>
     
     </div>
   </aside>
