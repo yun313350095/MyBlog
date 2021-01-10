@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>组合模式golang | Noonde</title>
+  <title>责任链模式 golang | Noonde</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="Noonde" />
@@ -11,18 +11,18 @@
   
   
   
-  <meta name="description" content="组合模式组合模式(Composite Pattern): 组合多个对象形成树形结构表示具有”整体一部分”关系的层次结构.适用场景: 希望客户端可以忽略组合对象与单个对象的差异 优点 和 缺点优点  清楚地定义分层次的复杂对象, 表示对象的全部或部分层次 简化客户端代码 节点自由增加  缺点  限制类型比较复杂  1234567891011121314151617181920212223242526">
+  <meta name="description" content="责任链模式责任链模式（Chain of Responsibility Pattern）为请求创建了一个接收者对象的链。这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。应用实例: 消息过滤器, 权限拦截器 优点 和 缺点优点  降低耦合度。它将请求的发送者和接收者解耦 增加新的请求处理类很方便 简化对象, 使的对象不需要知道的结构  缺点  不能保证请求一定">
 <meta property="og:type" content="article">
-<meta property="og:title" content="组合模式Golang">
-<meta property="og:url" content="https://noonde.com/2020/11/18/GoF23/composite%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="责任链模式 Golang">
+<meta property="og:url" content="https://noonde.com/2020/11/21/GoF23/ChainofResponsibility%E8%B4%A3%E4%BB%BB%E9%93%BE%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Noonde">
-<meta property="og:description" content="组合模式组合模式(Composite Pattern): 组合多个对象形成树形结构表示具有”整体一部分”关系的层次结构.适用场景: 希望客户端可以忽略组合对象与单个对象的差异 优点 和 缺点优点  清楚地定义分层次的复杂对象, 表示对象的全部或部分层次 简化客户端代码 节点自由增加  缺点  限制类型比较复杂  1234567891011121314151617181920212223242526">
+<meta property="og:description" content="责任链模式责任链模式（Chain of Responsibility Pattern）为请求创建了一个接收者对象的链。这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。应用实例: 消息过滤器, 权限拦截器 优点 和 缺点优点  降低耦合度。它将请求的发送者和接收者解耦 增加新的请求处理类很方便 简化对象, 使的对象不需要知道的结构  缺点  不能保证请求一定">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-11-17T15:00:00.000Z">
-<meta property="article:modified_time" content="2021-01-10T08:26:53.884Z">
+<meta property="article:published_time" content="2020-11-20T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-10T11:24:25.731Z">
 <meta property="article:author" content="Yunling Zhang">
 <meta property="article:tag" content="GoF23">
-<meta property="article:tag" content="结构型模式">
+<meta property="article:tag" content="行为模式">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Noonde" type="application/atom+xml">
@@ -169,7 +169,7 @@
             
       <div id="content" class="outer">
         
-          <section id="main" style="float:none;"><article id="post-GoF23/composite组合模式" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+          <section id="main" style="float:none;"><article id="post-GoF23/ChainofResponsibility责任链设计" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
     
@@ -177,7 +177,7 @@
         
   
     <h1 class="thumb" class="article-title" itemprop="name">
-      组合模式Golang
+      责任链模式 Golang
     </h1>
   
 
@@ -185,8 +185,8 @@
     
     <div class="article-meta">
       
-	<a href="/2020/11/18/GoF23/composite%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" class="article-date">
-	  <time datetime="2020-11-17T15:00:00.000Z" itemprop="datePublished">2020-11-18</time>
+	<a href="/2020/11/21/GoF23/ChainofResponsibility%E8%B4%A3%E4%BB%BB%E9%93%BE%E8%AE%BE%E8%AE%A1/" class="article-date">
+	  <time datetime="2020-11-20T15:00:00.000Z" itemprop="datePublished">2020-11-21</time>
 	</a>
 
       
@@ -204,18 +204,18 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h5><p>组合模式(Composite Pattern): 组合多个对象形成树形结构表示具有”整体一部分”关系的层次结构.<br>适用场景: 希望客户端可以忽略组合对象与单个对象的差异</p>
-<h5 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h5><p>优点</p>
+        <h5 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h5><p>责任链模式（Chain of Responsibility Pattern）为请求创建了一个接收者对象的链。<br>这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。<br>应用实例: 消息过滤器, 权限拦截器</p>
+<h6 id="优点-和-缺点"><a href="#优点-和-缺点" class="headerlink" title="优点 和 缺点"></a>优点 和 缺点</h6><p>优点</p>
 <ol>
-<li>清楚地定义分层次的复杂对象, 表示对象的全部或部分层次</li>
-<li>简化客户端代码</li>
-<li>节点自由增加</li>
+<li>降低耦合度。它将请求的发送者和接收者解耦</li>
+<li>增加新的请求处理类很方便</li>
+<li>简化对象, 使的对象不需要知道的结构</li>
 </ol>
 <p>缺点</p>
 <ol>
-<li>限制类型比较复杂</li>
+<li>不能保证请求一定被接受</li>
 </ol>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IOrganization <span class="keyword">interface</span> &#123;</span><br><span class="line">    Count() <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Employee <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(Employee)</span> <span class="title">Count</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Department <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">    SubOrganizations []IOrganization</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d Department)</span> <span class="title">Count</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    c := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> _, org := <span class="keyword">range</span> d.SubOrganizations &#123;</span><br><span class="line">        c += org.Count()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d *Department)</span> <span class="title">AddSub</span><span class="params">(org IOrganization)</span></span> &#123;</span><br><span class="line">    d.SubOrganizations = <span class="built_in">append</span>(d.SubOrganizations, org)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Handle <span class="keyword">interface</span> &#123;</span><br><span class="line">    SetNext(next Handle)</span><br><span class="line">    GetNext() Handle</span><br><span class="line">    HandleRequest(request <span class="keyword">string</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> ConcreteHandle1 <span class="keyword">struct</span> &#123;</span><br><span class="line">    next Handle</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(handle *ConcreteHandle1)</span> <span class="title">SetNext</span><span class="params">(next Handle)</span></span> &#123;</span><br><span class="line">    handle.next = next</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(handle *ConcreteHandle1)</span> <span class="title">GetNext</span><span class="params">()</span> <span class="title">Handle</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> handle.next</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(handle *ConcreteHandle1)</span> <span class="title">HandleRequest</span><span class="params">(request <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> request == <span class="string">&quot;one&quot;</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;1 response&quot;</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> handle.GetNext() != <span class="literal">nil</span> &#123;</span><br><span class="line">        handle.GetNext().HandleRequest(request)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;No one handle&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ConcreteHandle2 <span class="keyword">struct</span> &#123;</span><br><span class="line">    next Handle</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(handle *ConcreteHandle2)</span> <span class="title">SetNext</span><span class="params">(next Handle)</span></span> &#123;</span><br><span class="line">    handle.next = next</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(handle *ConcreteHandle2)</span> <span class="title">GetNext</span><span class="params">()</span> <span class="title">Handle</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> handle.next</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(handle *ConcreteHandle2)</span> <span class="title">HandleRequest</span><span class="params">(request <span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> request == <span class="string">&quot;two&quot;</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;2 response&quot;</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> handle.GetNext() != <span class="literal">nil</span> &#123;</span><br><span class="line">        handle.GetNext().HandleRequest(request)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;No one handle&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
@@ -239,7 +239,7 @@ var a = new Donate({
       
       
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GoF23/" rel="tag">GoF23</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/" rel="tag">结构型模式</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GoF23/" rel="tag">GoF23</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%BC%8F/" rel="tag">行为模式</a></li></ul>
 
       
 
@@ -249,19 +249,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
-    <a href="/2020/11/21/GoF23/ChainofResponsibility%E8%B4%A3%E4%BB%BB%E9%93%BE%E8%AE%BE%E8%AE%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/11/28/GoF23/Template%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%9E%8B/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          责任链模式 Golang
+          模板方法Golang
         
       </div>
     </a>
   
   
-    <a href="/2020/11/16/GoF23/Adapter%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/11/18/GoF23/composite%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">适配器模式Golang</div>
+      <div class="article-nav-title">组合模式Golang</div>
     </a>
   
 </nav>
@@ -275,7 +275,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">Contents</strong>
     
-        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">组合模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-%E5%92%8C-%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点 和 缺点</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">责任链模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-%E5%92%8C-%E7%BC%BA%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">优点 和 缺点</span></a></li></ol></li></ol>
     
     </div>
   </aside>
